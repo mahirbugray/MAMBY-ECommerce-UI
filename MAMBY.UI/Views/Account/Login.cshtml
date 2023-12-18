@@ -1,7 +1,7 @@
 ﻿@model LoginViewModel
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
 
 <!-- Start Banner Area -->
@@ -9,10 +9,10 @@
 	<div class="container">
 		<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 			<div class="col-first">
-				<h1>Login/Register</h1>
+				<h1>Giriş Yap</h1>
 				<nav class="d-flex align-items-center">
-					<a asp-action="Index" asp-controller="Home">Home<span class="lnr lnr-arrow-right"></span></a>
-					<a href="category.html">Login/Register</a>
+					<a asp-action="Index" asp-controller="Home">Anasayfa<span class="lnr lnr-arrow-right"></span></a>
+					<a href="category.html">Giriş Yap</a>
 				</nav>
 			</div>
 		</div>
@@ -27,31 +27,31 @@
 				<div class="login_box_img">
 					<img class="img-fluid" src="~/theme/img/login.jpg" alt="">
 					<div class="hover">
-						<h4>New to our website?</h4>
-						<p>There are advances being made in science and technology everyday, and a good example of this is the</p>
-						<a class="primary-btn" href="registration.html">Create an Account</a>
+						<h4>Web sitemizde yeni misiniz?</h4>
+						<p>Mamby’e giriş yap veya hesap oluştur, indirimleri kaçırma!</p>
+						<a class="primary-btn" asp-action="Register" asp-controller="Account">Hesap Oluşturun</a>
 					</div>
 				</div>
 			</div>
 			<div class="col-lg-6">
 				<div class="login_form_inner">
-					<h3>Log in to enter</h3>
+					<h3>Oturum Açın</h3>
 					<form class="row login_form" asp-action="Login" asp-controller="Account" method="post" id="contactForm">
 						<div class="col-md-12 form-group">
-							<input type="text" class="form-control" id="name" asp-for="UserName" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+							<input type="text" class="form-control" id="name" asp-for="UserName" placeholder="Kullanıcı Adı" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
 						</div>
 						<div class="col-md-12 form-group">
-							<input type="password" class="form-control" id="name" asp-for="Password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+							<input type="password" class="form-control" id="name" asp-for="Password" placeholder="Parola" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
 						</div>
 						<div class="col-md-12 form-group">
 							<div class="creat_account">
 								<input type="checkbox" id="f-option2" name="selector">
-								<label for="f-option2">Keep me logged in</label>
+								<label for="f-option2">Oturumu Açık Tut</label>
 							</div>
 						</div>
 						<div class="col-md-12 form-group">
-							<button type="submit" value="submit" class="primary-btn">Log In</button>
-							<a href="#">Forgot Password?</a>
+							<button type="submit" value="submit" class="primary-btn">Giriş Yap</button>
+							<a href="#">Parolanızı mı Unuttunuz?</a>
 						</div>
 					</form>
 				</div>
@@ -60,4 +60,3 @@
 	</div>
 </section>
 <!--================End Login Box Area =================-->
-
