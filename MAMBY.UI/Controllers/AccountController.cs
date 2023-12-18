@@ -14,7 +14,7 @@ namespace MAMBY.UI.Controllers
             _httpClientFactory = httpClientFactory;
         }
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Login()
         {
             return View();
         }
@@ -31,6 +31,11 @@ namespace MAMBY.UI.Controllers
                 return RedirectToAction("Index", "Home");   
             }
             return View(model);
+        }
+
+        public async Task<IActionResult> Register()
+        {
+            return View();
         }
 
     }
