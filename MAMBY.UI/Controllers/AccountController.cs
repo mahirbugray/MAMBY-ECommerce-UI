@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MAMBY.UI.Controllers
 {
@@ -27,16 +28,31 @@ namespace MAMBY.UI.Controllers
             var result = await client.PostAsync("https://localhost:7266/api/Account/Login", content);
             if (result.IsSuccessStatusCode)
             {
-                var jsonDataa = await result.Content.ReadAsStringAsync();
-                return RedirectToAction("Index", "Home");   
+				return RedirectToAction("Index", "Home");   
             }
-            return View(model);
+			var jsonDataa = await result.Content.ReadAsStringAsync();
+			ModelState.AddModelError("Error", jsonDataa);
+			return View(model);
         }
-
-        public async Task<IActionResult> Register()
+        [HttpGet]
+        public IActionResult Register()
         {
             return View();
         }
-
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            var jsonData = JsonConvert.SerializeObject(model);
+            var client = _httpClientFactory.CreateClient();
+            var content = new StringContent(jsonData, encoding: Encoding.UTF8, "application/json");
+            var result = await client.PostAsync("https://localhost:7266/api/Account/Register", content);
+            var error = await result.Content.ReadAsStringAsync();
+            if (result.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            ModelState.AddModelError("Error", error);
+            return View(model);
+        }
     }
 }
