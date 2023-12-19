@@ -37,11 +37,14 @@
 				<div class="login_form_inner">
 					<h3>Oturum Açın</h3>
 					<form class="row login_form" asp-action="Login" asp-controller="Account" method="post" id="contactForm">
+						<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 						<div class="col-md-12 form-group">
 							<input type="text" class="form-control" id="name" asp-for="UserName" placeholder="Kullanıcı Adı" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+							<span asp-validation-for="UserName" class="text-danger"></span>
 						</div>
 						<div class="col-md-12 form-group">
 							<input type="password" class="form-control" id="name" asp-for="Password" placeholder="Parola" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+							<span asp-validation-for="Password" class="text-danger"></span>
 						</div>
 						<div class="col-md-12 form-group">
 							<div class="creat_account">
