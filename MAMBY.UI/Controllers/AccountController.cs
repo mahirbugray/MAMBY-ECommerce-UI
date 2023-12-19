@@ -54,5 +54,25 @@ namespace MAMBY.UI.Controllers
             ModelState.AddModelError("Error", error);
             return View(model);
         }
+        [HttpGet]
+        public IActionResult ResetPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            var jsonData = JsonConvert.SerializeObject(model);
+            var client = _httpClientFactory.CreateClient();
+            var content = new StringContent(jsonData, encoding: Encoding.UTF8, "application/json");
+            var result = await client.PostAsync("https://localhost:7266/api/Account/PasswordReset", content);
+            var error = await result.Content.ReadAsStringAsync();
+            if (result.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            ModelState.AddModelError("Error", error);   
+            return View(model);
+        }
     }
 }
