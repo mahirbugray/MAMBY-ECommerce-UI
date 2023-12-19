@@ -21,16 +21,16 @@
                         </li>
                         <li class="nav-item submenu dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                               aria-expanded="false">Kategoriler</a>
+                               aria-expanded="false">KATEGORİLER</a>
                             <ul class="dropdown-menu">
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Shop" asp-action="Category">Ayakkabılar</a>
+                                    <a class="nav-link" asp-area="" asp-controller="Shop" asp-action="Category">AYAKKABILAR</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Shop" asp-action="Category">Dış Giyim</a>
+                                    <a class="nav-link" asp-area="" asp-controller="Shop" asp-action="Category">DIŞ GİYİM</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Shop" asp-action="Category">Elbiseler</a>
+                                    <a class="nav-link" asp-area="" asp-controller="Shop" asp-action="Category">ELBİSELER</a>
                                 </li>
                                 <!-- Diğer Shop sayfalarını da benzer şekilde ekleyebilirsiniz -->
                             </ul>
@@ -45,20 +45,34 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">İletişim</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">İLETİŞİM</a>
                         </li>
                         <!-- User Menüsü -->
                         <li class="nav-item submenu dropdown" id="userDropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                aria-expanded="false">
-                                <img src="~/theme/img/user.png" alt="User Icon" style="width:25px"/></a>
+                                <img src="~/theme/img/user.png" alt="User Icon" style="width:25px" />
+                            </a>
                             <ul class="dropdown-menu">
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-controller="Account" asp-action="Login" id="loginLink"> Login </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-controller="Account" asp-action="Register" id="registerLink"> Register </a>
-                                </li>
+
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Account" asp-action="Login" id="loginLink"> Hesabım </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Account" asp-action="Register" id="registerLink">Çıkış Yap</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Account" asp-action="Login" id="loginLink"> Giriş Yap </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Account" asp-action="Register" id="registerLink"> Üye Ol </a>
+                                    </li>
+                                }
                             </ul>
                         </li>
                     </ul>
