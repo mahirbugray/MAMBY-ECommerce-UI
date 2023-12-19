@@ -12,6 +12,8 @@ namespace MAMBY.UI.Models
         [Required(ErrorMessage = "Bu alan boş bırakılamaz.")]
         public string UserName { get; set; }
         [Required(ErrorMessage = "Bu alan boş bırakılamaz.")]
+        public string PhoneNumber { get; set; }
+        [Required(ErrorMessage = "Bu alan boş bırakılamaz.")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Bu alan boş bırakılamaz.")]
         [DataType(DataType.Password)]
