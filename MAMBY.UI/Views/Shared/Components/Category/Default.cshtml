@@ -1,0 +1,8 @@
+﻿@model List<CategoryViewModel>
+
+@foreach(var item in Model)
+{
+    <li class="nav-item">
+        <a class="nav-link">@item.CategoryName</a>
+    </li>
+}
