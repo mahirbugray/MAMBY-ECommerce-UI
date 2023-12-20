@@ -25,6 +25,7 @@ namespace MAMBY.UI.Controllers
         {
             var client = _httpClientFactory.CreateClient();
             var result = await client.GetAsync("https://localhost:7266/api/Account/Logout");
+            HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
         }
         [HttpPost]
@@ -36,7 +37,9 @@ namespace MAMBY.UI.Controllers
             var result = await client.PostAsync("https://localhost:7266/api/Account/Login", content);
             if (result.IsSuccessStatusCode)
             {
-				return RedirectToAction("Index", "Home");   
+                HttpContext.Session.SetString("user", await result.Content.ReadAsStringAsync());
+                var user = JsonConvert.DeserializeObject<UserViewModel>(HttpContext.Session.GetString("user"));
+				return RedirectToAction("Index", "Home");
             }
 			var jsonDataa = await result.Content.ReadAsStringAsync();
 			ModelState.AddModelError("Error", jsonDataa);
@@ -48,17 +51,17 @@ namespace MAMBY.UI.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model, IFormFile formFile)
+        public async Task<IActionResult> Register(RegisterViewModel model/*, IFormFile formFile*/)
         {
-            if (formFile!= null)
-            {
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\theme\\img", formFile.FileName);
-                var stream = new FileStream(path, FileMode.Create);
-                formFile.CopyTo(stream);
-                model.ImageUrl = "/img/" + formFile.FileName /*+ model.Id*/;    //Yüklenen resim isimlerinde çakışma olmaması için ismin sonuna uniq id bilgisini ekliyoruz
-                return RedirectToAction("Register", "Account");
+            //if (formFile!= null)
+            //{
+            //    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\theme\\img", formFile.FileName);
+            //    var stream = new FileStream(path, FileMode.Create);
+            //    formFile.CopyTo(stream);
+            //    model.ImageUrl = "/img/" + formFile.FileName /*+ model.Id*/;    //Yüklenen resim isimlerinde çakışma olmaması için ismin sonuna uniq id bilgisini ekliyoruz
+            //    return RedirectToAction("Register", "Account");
 
-            }
+            //}
             var jsonData = JsonConvert.SerializeObject(model);
             var client = _httpClientFactory.CreateClient();
             var content = new StringContent(jsonData, encoding: Encoding.UTF8, "application/json");

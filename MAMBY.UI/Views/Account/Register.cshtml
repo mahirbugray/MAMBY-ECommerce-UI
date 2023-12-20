@@ -38,12 +38,20 @@
                             <span asp-validation-for="Surname" class="text-danger"></span>
                         </div>
                         <div class="col-md-12 form-group">
-                            <input asp-for="UserName" type="text" class="form-control" placeholder="Kullanıcı Adı" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Kullanıcı Adı'">
-                            <span asp-validation-for="Surname" class="text-danger"></span>
+                            <input asp-for="BirthDate" type="date" class="form-control" placeholder="Doğum Tarihi" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Doğum Tarihi'">
+                            <span asp-validation-for="BirthDate" class="text-danger"></span>
                         </div>
                         <div class="col-md-12 form-group">
-                            <input asp-for="PhoneNumber" type="email" class="form-control" placeholder="Telefon No" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Telefon No'">
-                            <span asp-validation-for="Email" class="text-danger"></span>
+                            <input asp-for="Address" type="text" class="form-control" placeholder="Adres Bilgisi" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Adres Bilgisi'">
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input asp-for="UserName" type="text" class="form-control" placeholder="Kullanıcı Adı" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Kullanıcı Adı'">
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input asp-for="PhoneNumber" type="tel" class="form-control" placeholder="Telefon No" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Telefon No'">
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                         </div>
                         <div class="col-md-12 form-group">
                             <input asp-for="Email" type="email" class="form-control" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
@@ -56,10 +64,6 @@
                         <div class="col-md-12 form-group">
                             <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Tekrar Parola" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Tekrar Parola'">
                             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                        </div>
-                        <div class="col-md-12 form-group">
-                            <input asp-for="ImageUrl" type="file" asp-for="ImageUrl" accept="image/*">
-                            <span asp-validation-for="ImageUrl" class="text-danger"></span>
                         </div>
                         <div class="col-md-12 form-group">
                             <button type="submit" value="submit" class="primary-btn">Üye Ol</button>

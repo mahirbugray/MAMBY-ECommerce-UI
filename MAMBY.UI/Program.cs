@@ -4,6 +4,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
 
+
+builder.Services.AddSession(
+    opt => opt.IdleTimeout = TimeSpan.FromMinutes(120)
+    );
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -16,6 +21,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseSession();
 
 app.UseRouting();
 
