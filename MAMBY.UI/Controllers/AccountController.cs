@@ -25,7 +25,7 @@ namespace MAMBY.UI.Controllers
         {
             var client = _httpClientFactory.CreateClient();
             var result = await client.GetAsync("https://localhost:7266/api/Account/Logout");
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
@@ -79,36 +79,45 @@ namespace MAMBY.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
         {
-            var jsonData = JsonConvert.SerializeObject(model);
+            var jsonData = JsonConvert.SerializeObject(model.Username);
             var client = _httpClientFactory.CreateClient();
             var content = new StringContent(jsonData, encoding: Encoding.UTF8, "application/json");
+            var result = await client.PostAsync("https://localhost:7266/api/Account/PasswordResetControl", content);
+            if (result.IsSuccessStatusCode)
+            {
+                var token = await result.Content.ReadAsStringAsync();
+                ResetPasswordViewModel getToken = new ResetPasswordViewModel()
+                {
+                    Token = token,
+                    Username = model.Username,
+                    Email = model.Email
+
+                };
+                return RedirectToAction("SetNewPassword", "Account", getToken);
+            }
+            ModelState.AddModelError("", "Kullanıcı Adı veya Email hatalı");   
+            return View(model);
+        }
+        [HttpGet]
+        public IActionResult SetNewPassword(ResetPasswordViewModel getToken)
+        {
+            return View(getToken);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> NewPassword(ResetPasswordViewModel model)
+        {
+            var jsonData = JsonConvert.SerializeObject(model);
+            var client = _httpClientFactory.CreateClient();
+            var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
             var result = await client.PostAsync("https://localhost:7266/api/Account/PasswordReset", content);
             var error = await result.Content.ReadAsStringAsync();
             if (result.IsSuccessStatusCode)
             {
                 return RedirectToAction("Login", "Account");
             }
-            ModelState.AddModelError("Error", error);   
-            return View(model);
-        }
-        [HttpGet]
-        public IActionResult SetNewPassword(string username, string email)
-        {
-            var model = new ResetPasswordViewModel
-            {
-                Username = username,
-                Email = email
-            };
-
-            return View(model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> SetNewPassword(ResetPasswordViewModel model)
-        {
-            // Yeni parola belirleme işlemi yapılacak
-            // Eğer başarılıysa giriş sayfasına yönlendirilebilir
-            return RedirectToAction("Login", "Account");
+            ModelState.AddModelError("Error", error);
+            return RedirectToAction("SetNewPassword", "Account", model);
         }
     }
 }
