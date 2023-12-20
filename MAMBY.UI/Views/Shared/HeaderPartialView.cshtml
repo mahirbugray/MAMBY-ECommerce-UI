@@ -54,25 +54,7 @@
                                 <img src="~/theme/img/user.png" alt="User Icon" style="width:25px" />
                             </a>
                             <ul class="dropdown-menu">
-
-                                @if (User.Identity.IsAuthenticated)
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link" asp-controller="Account" asp-action="Login" id="loginLink"> Hesabım </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" asp-controller="Account" asp-action="Register" id="registerLink">Çıkış Yap</a>
-                                    </li>
-                                }
-                                else
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link" asp-controller="Account" asp-action="Login" id="loginLink"> Giriş Yap </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" asp-controller="Account" asp-action="Register" id="registerLink"> Üye Ol </a>
-                                    </li>
-                                }
+                                <vc:user ></vc:user>
                             </ul>
                         </li>
                     </ul>
