@@ -16,24 +16,31 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                     <ul class="nav navbar-nav menu_nav ml-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Anasayfa</a>
-                        </li>
-                        <li class="nav-item submenu dropdown">
-                            <a class="nav-link" asp-area="" asp-controller="Product" asp-action="Index">Ürünler</a>
+
+                        <!-- Anasayfa Menu -->
+                        <li class="nav-item @(Context.Request.Path == "/Home/Index" ? "active" : "")">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Anasayfa</a>
                         </li>
 
-                        <li class="nav-item submenu dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                               aria-expanded="false">En Popüler</a>
+                        <!-- Ürünler Menu -->
+                        <li class="nav-item submenu dropdown @(Context.Request.Path == "/Product/Index" ? "active" : "")">
+                            <a class="nav-link" asp-controller="Product" asp-action="Index">Ürünler</a>
+                        </li>
+
+                        <!-- En Popüler Menu  -->
+                        <li class="nav-item submenu dropdown @(Context.Request.Path == "/Home/Tracking" || Context.Request.Path == "/Home/Elements" ? "active" : "")">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">En Popüler</a>
                             <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Tracking" asp-action="Index">Tracking</a></li>
-                                <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Elements">Elements</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index"> Çok Satanlar</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index"> Çok Sevilenler</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">İLETİŞİM</a>
+
+                        <!-- İletişim menü öğesi -->
+                        <li class="nav-item @(Context.Request.Path=="/Home/Contact" ? "active" : "")">
+                            <a class="nav-link" asp-controller="Home" asp-action="Contact">İLETİŞİM</a>
                         </li>
+
                         <!-- User Menüsü -->
                         <li class="nav-item submenu dropdown" id="userDropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -41,7 +48,7 @@
                                 <img src="~/theme/img/user.png" alt="User Icon" style="width:25px" />
                             </a>
                             <ul class="dropdown-menu">
-                                <vc:user ></vc:user>
+                                <vc:user></vc:user>
                             </ul>
                         </li>
                     </ul>
