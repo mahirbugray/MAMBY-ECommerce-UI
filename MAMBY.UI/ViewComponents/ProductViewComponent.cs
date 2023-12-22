@@ -1,5 +1,6 @@
 ﻿using MAMBY.UI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace MAMBY.UI.ViewComponents
 {
@@ -13,12 +14,14 @@ namespace MAMBY.UI.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var client = _httpClientFactory.CreateClient();
-            var result = await client.GetFromJsonAsync<List<ProductViewModel>>("https://localhost:7266/api/Product/GetAllProducts");
-            if (result != null)
+            var result = await client.GetAsync("https://localhost:7266/api/Product/GetAllProducts");
+            if (result.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                return View(result);
+                var jsonData = await result.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<List<ProductViewModel>>(jsonData);
+                return View("Default", data);
             }
-            return View(new List<ProductViewModel>());
+            return View("Default", new List<ProductViewModel>());
         }
     }
 }
