@@ -25,9 +25,13 @@ namespace MAMBY.UI.Controllers
         {
             var client = _httpClientFactory.CreateClient();
             var result = await client.GetAsync("https://localhost:7266/api/Account/Logout");
-            HttpContext.Session.Clear();
-            return RedirectToAction("Index", "Home");
-        }
+            if(result.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+				HttpContext.Session.Clear();
+				return RedirectToAction("Index", "Home");
+			}
+			return RedirectToAction("Index", "Home");
+		}
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
