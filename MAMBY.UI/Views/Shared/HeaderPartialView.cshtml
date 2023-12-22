@@ -18,12 +18,12 @@
                     <ul class="nav navbar-nav menu_nav ml-auto">
 
                         <!-- Anasayfa Menu -->
-                        <li class="nav-item @(Context.Request.Path == "/Home/Index" ? "active" : "")">
+                        <li class="nav-item @(Context.Request.Path == "/" ? "active" : "")">
                             <a class="nav-link" asp-controller="Home" asp-action="Index">Anasayfa</a>
                         </li>
 
                         <!-- Ürünler Menu -->
-                        <li class="nav-item submenu dropdown @(Context.Request.Path == "/Product/Index" ? "active" : "")">
+                        <li class="nav-item submenu dropdown @(Context.Request.Path == "/Product" ? "active" : "")">
                             <a class="nav-link" asp-controller="Product" asp-action="Index">Ürünler</a>
                         </li>
 
@@ -37,7 +37,7 @@
                         </li>
 
                         <!-- İletişim menü öğesi -->
-                        <li class="nav-item @(Context.Request.Path=="/Home/Contact" ? "active" : "")">
+                        <li class="nav-item @(Context.Request.Path=="/Contact" ? "active" : "")">
                             <a class="nav-link" asp-controller="Home" asp-action="Contact">İLETİŞİM</a>
                         </li>
 
