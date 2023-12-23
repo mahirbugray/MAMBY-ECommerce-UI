@@ -1,4 +1,4 @@
-﻿
+﻿@model List<ProductViewModel>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
@@ -23,8 +23,54 @@
             <vc:category></vc:category>
         </div>
         <div class="col-md-9">
-          <vc:product></vc:product>
+            <div class="row">
+                @if (Model.Count() <= 0)
+                {
+                    <div class="alert alert-danger" role="alert" style="width:100%;">
+                        <strong>İstenilen kategoriye ait ürünümüz bulunmamaktadır </strong>
+                    </div>
+                }
+                else
+                {
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-md-4" style="margin-bottom: 10px !important;">
+                            <!-- Eklenen mb-3 sınıfı ile alt satırdaki ürünlerle aralığı azalt -->
+                            <div class="single-product">
+                                <img class="img-fluid m-3" src="@item.ThumbnailImage" style="height: 300px" alt="@item.Name">
+                                <div class="product-details">
+                                    <h6>@item.Name</h6>
+                                    <div class="price">
+                                        <h6>@item.Price</h6>
+                                        <h6 class="l-through">@item.Price</h6>
+                                    </div>
+                                    <div class="prd-bottom">
+
+                                        <a href="" class="social-info">
+                                            <span class="ti-bag"></span>
+                                            <p class="hover-text">Sepete Ekle</p>
+                                        </a>
+                                        <a href="" class="social-info">
+                                            <span class="lnr lnr-heart"></span>
+                                            <p class="hover-text">İstek Listesi</p>
+                                        </a>
+                                        <a href="" class="social-info">
+                                            <span class="lnr lnr-sync"></span>
+                                            <p class="hover-text">Birleştir</p>
+                                        </a>
+                                        <a asp-action="Details" asp-controller="Product" asp-route-id="@item.Id" class="social-info">
+                                            <span class="lnr lnr-move"></span>
+                                            <p class="hover-text">Detaylar</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
         </div>
     </div>
 </div>
+
 
