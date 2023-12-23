@@ -23,9 +23,9 @@ namespace MAMBY.UI.Controllers
         {
 	        var client = _httpClientFactory.CreateClient();
             var result = await client.GetAsync("https://localhost:7266/api/Product/GetProductById/" + id);
-            if(result.StatusCode == System.Net.HttpStatusCode.OK)
+			var jsonData = await result.Content.ReadAsStringAsync();
+			if (result.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                var jsonData = await result.Content.ReadAsStringAsync();
                 var data = JsonConvert.DeserializeObject<ProductViewModel>(jsonData);
                 return View(data);
             }
