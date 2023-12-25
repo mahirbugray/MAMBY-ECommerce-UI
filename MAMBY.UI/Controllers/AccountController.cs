@@ -55,17 +55,8 @@ namespace MAMBY.UI.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model/*, IFormFile formFile*/)
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            //if (formFile!= null)
-            //{
-            //    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\theme\\img", formFile.FileName);
-            //    var stream = new FileStream(path, FileMode.Create);
-            //    formFile.CopyTo(stream);
-            //    model.ImageUrl = "/img/" + formFile.FileName /*+ model.Id*/;    //Yüklenen resim isimlerinde çakışma olmaması için ismin sonuna uniq id bilgisini ekliyoruz
-            //    return RedirectToAction("Register", "Account");
-
-            //}
             var jsonData = JsonConvert.SerializeObject(model);
             var client = _httpClientFactory.CreateClient();
             var content = new StringContent(jsonData, encoding: Encoding.UTF8, "application/json");
