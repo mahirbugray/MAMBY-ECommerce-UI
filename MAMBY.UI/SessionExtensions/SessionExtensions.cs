@@ -9,5 +9,9 @@ namespace MAMBY.UI.SessionExtensions
             var value = session.GetString(key);
             return value == null ? default : JsonSerializer.Deserialize<T>(value);
         }
+        public static void SetJson<T>(this ISession session, string key, T value)
+        {
+            session.SetString(key, JsonSerializer.Serialize(value));
+        }
     }
 }
