@@ -24,16 +24,16 @@
         <div class="cart_inner">
             <div class="table">
                 <table class="table">
-                   @*  <thead> *@
-                        <tr>
-                            <th class="col">Ürünler</th>
-                            <th class="col">Fiyat</th>
-                            <th class="col">Adet</th>
-                            <th class="col">Toplam</th>
-                        </tr>
+                    @*  <thead> *@
+                    <tr>
+                        <th class="col">Ürünler</th>
+                        <th class="col">Fiyat</th>
+                        <th class="col">Adet</th>
+                        <th class="col">Toplam</th>
+                    </tr>
                     @* </thead> *@
                     <tbody>
-                        @foreach(var item in Model)
+                        @foreach (var item in Model)
                         {
                             <tr>
                                 <td>
@@ -102,11 +102,12 @@
                             <td>
                             </td>
                             <td>
-                                <h5>Kargo</h5>
+                               
                             </td>
                             <td>
                                 <div class="shipping_box">
                                     <ul class="list">
+                                        <li class="mr-3"><h5>Kargo Seçeneği</h5></li>
                                         <li><a href="#">Ücretsiz Kargo</a></li>
                                         <li class="active"><a href="#">Kargo Ücreti: ₺29.99</a></li>
                                     </ul>
@@ -115,6 +116,7 @@
                                     <input type="text" placeholder="Adres">
                                     <input type="text" placeholder="Posta Kodu">
                                     <a class="gray_btn" href="#">Kaydet</a>
+                                </div>
                             </td>
                         </tr>
                         <tr class="out_button_area">
