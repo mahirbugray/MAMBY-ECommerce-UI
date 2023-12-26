@@ -39,19 +39,19 @@
                                 <td>
                                     <div class="media">
                                         <div class="d-flex">
-                                            <img src="~/theme/img/exclusive.jpg" alt=""> @*resim eklenicek*@
+                                            <img src="@item.ProductViewModel.ThumbnailImage" alt="@item.ProductName"> @*resim eklenicek*@
                                         </div>
                                         <div class="media-body">
-                                            <p>Açıklama</p>       @*description eklenecek*@
+                                            <p>@item.ProductViewModel.Description</p>       @*description eklenecek*@
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <h5>@item.ProductPrice</h5>
+                                    <h5>@item.Price</h5>
                                 </td>
                                 <td>
                                     <div class="product_count">
-                                        <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
+                                        <input type="text" name="qty" id="sst" maxlength="12" value="@item.Quantity" title="Quantity:"
                                                class="input-text qty">
                                         <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
                                                 class="increase items-count" type="button">
@@ -64,7 +64,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <h5>$720.00</h5>
+                                    <h5>@(item.Price * item.Quantity)</h5>
                                 </td>
                             </tr>
                         }
@@ -93,7 +93,7 @@
                                 <h5>Ara Toplam</h5>
                             </td>
                             <td>
-                                <h5>₺2160.00</h5>
+                                <h5>@TempData["TotalPrice"]</h5>
                             </td>
                         </tr>
                         <tr class="shipping_area">

@@ -64,7 +64,7 @@
 						</button>
 					</div>
 					<div class="card_area d-flex align-items-center">
-						<form asp-action="Add" asp-controller="Card" method="post">
+						<form asp-action="Add" asp-controller="Card" asp-route-id="@Model.Id" method="post">
                             <input type="hidden" name="productId" value="@Model.Id" />
                             <input type="hidden" name="quantity" id="quantity" value="1" />
 

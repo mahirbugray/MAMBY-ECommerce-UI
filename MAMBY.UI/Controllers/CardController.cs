@@ -23,12 +23,12 @@ namespace MAMBY.UI.Controllers
             TempData["TotalPrice"] = TotalPrice(card).ToString();
             return View(card);
         }
-        public async Task<IActionResult> Add(int id, int quantity)
+        public async Task<IActionResult> Add(ProductViewModel model, int quantity)
         {
             if (HttpContext.Session.GetString("user") != null)
             {
                 var client = _httpClientFactory.CreateClient();
-                var result = await client.GetAsync("https://localhost:7266/api/Product/GetProductById/" + id);
+                var result = await client.GetAsync("https://localhost:7266/api/Product/GetProductById/" + model.Id);
                 if (result.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     var jsonData = await result.Content.ReadAsStringAsync();
@@ -39,10 +39,10 @@ namespace MAMBY.UI.Controllers
                         ProductId = data.Id,
                         Quantity = quantity,
                         ProductName = data.Name,
-                        ProductPrice = data.Price
+                        Price = data.Price,
+                        ProductViewModel = data
                     };
-
-                    card = AddCard(card, order);
+                    card = AddCard(card, cardLineViewModel);
                     SaveCard(card);
 
                     TempData["TotalQuantity"] = TotalQuantity(card).ToString();
@@ -117,7 +117,7 @@ namespace MAMBY.UI.Controllers
         }
         public decimal TotalPrice(List<CardLineViewModel> card)
         {
-            var totalPrice = card.Sum(c => c.Quantity * c.ProductPrice);
+            var totalPrice = card.Sum(c => c.Quantity * c.Price);
             return totalPrice;
         }
     }
