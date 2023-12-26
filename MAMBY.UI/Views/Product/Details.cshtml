@@ -64,7 +64,12 @@
 						</button>
 					</div>
 					<div class="card_area d-flex align-items-center">
-						<a class="primary-btn" href="#">Sepete Ekle</a>
+						<form asp-action="Add" asp-controller="Card" method="post">
+                            <input type="hidden" name="productId" value="@Model.Id" />
+                            <input type="hidden" name="quantity" id="quantity" value="1" />
+
+                            <button type="submit" class="primary-btn">Sepete Ekle</button>
+                        </form>
 						<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
 						<a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
 					</div>

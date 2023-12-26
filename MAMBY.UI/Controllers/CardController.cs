@@ -62,6 +62,7 @@ namespace MAMBY.UI.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
+
         public IActionResult Delete(int id)
         {
             card = GetCards();

@@ -1,4 +1,4 @@
-﻿@model List<CardViewModel>
+﻿@model List<CardLineViewModel>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
@@ -8,10 +8,10 @@
     <div class="container">
         <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
             <div class="col-first">
-                <h1>Shopping Cart</h1>
+                <h1>Sepet</h1>
                 <nav class="d-flex align-items-center">
-                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
-                    <a href="category.html">Cart</a>
+                    <a asp-action="Index" asp-controller="Product" asp-route-id="card.Id ">Ürünler<span class="lnr lnr-arrow-right"></span></a>
+                    <a asp-action="Index" asp-controller="Card" asp-route-id="card.Id ">Sepetim</a>
                 </nav>
             </div>
         </div>
@@ -22,16 +22,16 @@
 <section class="cart_area">
     <div class="container">
         <div class="cart_inner">
-            <div class="table-responsive">
+            <div class="table">
                 <table class="table">
-                    <thead>
+                   @*  <thead> *@
                         <tr>
-                            <th scope="col">Product</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Total</th>
+                            <th class="col">Ürünler</th>
+                            <th class="col">Fiyat</th>
+                            <th class="col">Adet</th>
+                            <th class="col">Toplam</th>
                         </tr>
-                    </thead>
+                    @* </thead> *@
                     <tbody>
                         @foreach(var item in Model)
                         {
@@ -39,15 +39,15 @@
                                 <td>
                                     <div class="media">
                                         <div class="d-flex">
-                                            <img src="" alt=""> @*resim eklenicek*@
+                                            <img src="~/theme/img/exclusive.jpg" alt=""> @*resim eklenicek*@
                                         </div>
                                         <div class="media-body">
-                                            <p>Minimalistic shop for multipurpose use</p>       @*description eklenecek*@
+                                            <p>Açıklama</p>       @*description eklenecek*@
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <h5>@item.TotalPrice</h5>
+                                    <h5>@item.ProductPrice</h5>
                                 </td>
                                 <td>
                                     <div class="product_count">
@@ -70,7 +70,7 @@
                         }
                         <tr class="bottom_button">
                             <td>
-                                <a class="gray_btn" href="#">Update Cart</a>
+                                <a class="gray_btn" href="#">SEPETİ GÜNCELLE</a>
                             </td>
                             <td>
                             </td>
@@ -78,9 +78,9 @@
                             </td>
                             <td>
                                 <div class="cupon_text d-flex align-items-center">
-                                    <input type="text" placeholder="Coupon Code">
-                                    <a class="primary-btn" href="#">Apply</a>
-                                    <a class="gray_btn" href="#">Close Coupon</a>
+                                    <input type="text" placeholder="Kupon Kodu">
+                                    <a class="primary-btn" href="#">UYGULA</a>
+                                    <a class="gray_btn" href="#">KUPONU SİL</a>
                                 </div>
                             </td>
                         </tr>
@@ -90,10 +90,10 @@
                             <td>
                             </td>
                             <td>
-                                <h5>Subtotal</h5>
+                                <h5>Ara Toplam</h5>
                             </td>
                             <td>
-                                <h5>$2160.00</h5>
+                                <h5>₺2160.00</h5>
                             </td>
                         </tr>
                         <tr class="shipping_area">
@@ -102,30 +102,19 @@
                             <td>
                             </td>
                             <td>
-                                <h5>Shipping</h5>
+                                <h5>Kargo</h5>
                             </td>
                             <td>
                                 <div class="shipping_box">
                                     <ul class="list">
-                                        <li><a href="#">Flat Rate: $5.00</a></li>
-                                        <li><a href="#">Free Shipping</a></li>
-                                        <li><a href="#">Flat Rate: $10.00</a></li>
-                                        <li class="active"><a href="#">Local Delivery: $2.00</a></li>
+                                        <li><a href="#">Ücretsiz Kargo</a></li>
+                                        <li class="active"><a href="#">Kargo Ücreti: ₺29.99</a></li>
                                     </ul>
-                                    <h6>Calculate Shipping <i class="fa fa-caret-down" aria-hidden="true"></i></h6>
-                                    <select class="shipping_select">
-                                        <option value="1">Bangladesh</option>
-                                        <option value="2">India</option>
-                                        <option value="4">Pakistan</option>
-                                    </select>
-                                    <select class="shipping_select">
-                                        <option value="1">Select a State</option>
-                                        <option value="2">Select a State</option>
-                                        <option value="4">Select a State</option>
-                                    </select>
-                                    <input type="text" placeholder="Postcode/Zipcode">
-                                    <a class="gray_btn" href="#">Update Details</a>
-                                </div>
+                                    <h6>ADRES GİRİN</h6>
+                                    <input type="text" placeholder="Şehir">
+                                    <input type="text" placeholder="Adres">
+                                    <input type="text" placeholder="Posta Kodu">
+                                    <a class="gray_btn" href="#">Kaydet</a>
                             </td>
                         </tr>
                         <tr class="out_button_area">
@@ -137,8 +126,8 @@
                             </td>
                             <td>
                                 <div class="checkout_btn_inner d-flex align-items-center">
-                                    <a class="gray_btn" href="#">Continue Shopping</a>
-                                    <a class="primary-btn" href="#">Proceed to checkout</a>
+                                    <a class="gray_btn" href="#">ALIŞVERİŞE DEVAM ET</a>
+                                    <a class="primary-btn" href="#">SEPETİ SİL</a>
                                 </div>
                             </td>
                         </tr>
