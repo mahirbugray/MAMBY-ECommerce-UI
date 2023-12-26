@@ -8,5 +8,7 @@
         public decimal TotalPrice { get; set; }
         public int UserId { get; set; }
 
+        public List<CardLineViewModel> Lines { get; set; }
+
     }
 }
