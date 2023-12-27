@@ -15,14 +15,25 @@
 
 @section Scripts {
     <script>
-        function increase(id) {
+        function increase(id ,price) {
 
             $.ajax({
                 // type: 'GET',  //default get olduğu için belirtmeden de çalışır
                 url: '/Card/Increase/' + id,
                 success: function (result) {
                     $('#cartrefresh').load("/Card/UpdateCard")
+                    var element = document.getElementById(`quantityid_${id}`);
+                    var totalPrice = document.getElementById(`totalprice_${id}`)
+                    if (element && totalPrice) {
+                        element.textContent = result;
+                        var total = result * price;
+                        var formattedTotal = formatCurrency(total);
 
+                        totalPrice.textContent = formattedTotal;
+                    }
+                    else {
+                        console.error(``);
+                    }
                 },
                 error: function (xhr, status, error) {
 
@@ -31,12 +42,25 @@
             });
         }
 
-        function decrease(id) {
+        function decrease(id, price) {
             $.ajax({
                 //type: 'GET',
                 url: '/Card/Decrease/' + id,
                 success: function (result) {
                     $("#cartrefresh").load("/Card/UpdateCard")
+                    var element = document.getElementById(`quantityid_${id}`);
+                    var totalPrice = document.getElementById(`totalprice_${id}`)
+                    if (element && totalPrice) {
+                        element.textContent = result;
+                        var total = result * price;
+
+                        var formattedTotal = formatCurrency(total);
+
+                        totalPrice.textContent = formattedTotal;
+                    }
+                    else {
+                        console.error(``);
+                    }
                 },
                 error: function (xhr, status, error) {
 
@@ -44,5 +68,12 @@
                 }
             });
         };
+
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('tr-TR', {
+                style: 'currency',
+                currency: 'TRY'
+            }).format(value);
+        }
     </script>
 } 

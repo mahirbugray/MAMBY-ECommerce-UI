@@ -49,19 +49,19 @@
                                         <h5>@item.Price.ToString("C")</h5>
                                     </td>
                                     <td>
-                                        <button style="border-radius:50%;" onclick="decrease(@item.ProductId)" class="mr-3 btn-outline-danger"><i class="fa-solid fa-minus"></i></button>
+                                        <button style="border-radius:50%;" onclick="decrease(@item.ProductId, @item.Price)" class="mr-3 btn-outline-danger"><i class="fa-solid fa-minus"></i></button>
                                         <div class="cart-product-quantity d-inline">
-                                            <p class="d-inline"><strong>@item.Quantity</strong></p>
+                                            <p class="d-inline"><strong id="quantityid_@item.ProductId">@item.Quantity</strong></p>
                                         </div><!-- End .cart-product-quantity -->
-                                        <button style="border-radius:50%;" onclick="increase(@item.ProductId)" class="ml-3 btn-outline-success"><i class="fa-solid fa-plus"></i></button>
+                                        <button style="border-radius:50%;" onclick="increase(@item.ProductId, @item.Price)" class="ml-3 btn-outline-success"><i class="fa-solid fa-plus"></i></button>
                                     </td>
-                                    <td class="total-col"> <h5>@((item.Price * item.Quantity).ToString("C"))</h5></td>
+                                    <td class="total-col"> <h5 id="totalprice_@item.ProductId">@((item.Price * item.Quantity).ToString("C"))</h5></td>
                                     <td class="remove-col"><a asp-action="DeleteCart" asp-controller="Cart" asp-route-id="@item.ProductId" class="btn-remove"><i class="icon-close"></i></a></td>
                                 </tr>
                             }
                             <tr class="bottom_button">
                                 <td>
-                                    <a class="gray_btn" href="#">Update Cart</a>
+                                    <a class="gray_btn" asp-action="Index" asp-controller="Card">Sepeti Güncelle</a>
                                 </td>
                                 <td>
                                 </td>
