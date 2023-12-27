@@ -79,12 +79,10 @@
                                 <td>
                                 </td>
                                 <td>
+                                    <h5>Ara Toplam</h5>
                                 </td>
-                                <td>
-                                    <h5 id="totalPriceDisplay">Ara Toplam</h5>
-                                </td>
-                                <td>
-                                    <h5>₺ @TempData["TotalPrice"]</h5>
+                                <td colspan="2">
+                                    <h5 id="totalPriceDisplay">@TempData["TotalPrice"]</h5>
                                 </td>
                             </tr>
                             <tr class="shipping_area">
@@ -92,13 +90,15 @@
                                 </td>
                                 <td>
                                 </td>
-                                <td>
-                                </td>
-                                <td>
+                                <td colspan="2">
                                     <div class="shipping_box">
-                                            <h5>Kargo Bilgileri</h5>
-                                        <input type="radio" name="shippingMethod" id="freeRadio" value="free"> Ücretsiz Kargo (1 Hafta)
-                                        <input type="radio" name="shippingMethod" id="arasRadio" value="aras"> Aras Kargo : 39.99 ₺
+                                        <h5>Kargo Bilgileri</h5>
+                                        
+                                            <input type="radio" name="shippingMethod" id="freeRadio" value="free" style="height:15px"> 
+                                            Ücretsiz Kargo (1 Hafta)
+                                            <input type="radio" name="shippingMethod" id="arasRadio" value="aras" style="height:15px"> 
+                                            Aras Kargo : ₺39.99
+
                                         <input type="text" placeholder="Şehir Girin" style="margin-top: 10px">
                                         <input type="text" placeholder="Adres Girin">
                                         <input type="text" placeholder="Posta Kodu">
