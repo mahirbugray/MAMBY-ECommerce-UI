@@ -17,7 +17,12 @@ namespace MAMBY.UI.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var cart = HttpContext.Session.GetString("cart");
+            var data = JsonConvert.DeserializeObject<List<CardLineViewModel>>(cart);
+            ViewBag.cart = data;
+            var user = HttpContext.Session.GetString("user");
+            var userData = JsonConvert.DeserializeObject<UserViewModel>(user);
+            return View(userData);
         }
 
         [HttpPost]
