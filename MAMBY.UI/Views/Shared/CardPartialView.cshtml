@@ -1,0 +1,156 @@
+﻿@model List<CardLineViewModel>
+
+
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Sepet</h1>
+                <nav class="d-flex align-items-center">
+                    <a asp-action="Index" asp-controller="Product" asp-route-id="card.Id ">Ürünler<span class="lnr lnr-arrow-right"></span></a>
+                    <a asp-action="Index" asp-controller="Card" asp-route-id="card.Id ">Sepetim</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Banner Area -->
+<!--================Cart Area =================-->
+@if (Model.Count() > 0)
+{
+    <section class="cart_area">
+        <div class="container">
+            <div class="cart_inner">
+                <div class="table">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="col">Ürünler</th>
+                                <th class="col">Fiyat</th>
+                                <th class="col">Adet</th>
+                                <th class="col">Toplam</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr data-product-id="@item.CardId">
+                                    <td>
+                                        <div class="media">
+                                            <div class="d-flex">
+                                                <img src="@item.ProductViewModel.ThumbnailImage" alt="@item.ProductName">
+                                            </div>
+                                            <div class="media-body">
+                                                <p>@item.ProductViewModel.Description</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <h5>@item.Price.ToString("C")</h5>
+                                    </td>
+                                    <td>
+                                        <button style="border-radius:50%;" onclick="decrease(@item.ProductId)" class="mr-3 btn-outline-danger"><i class="fa-solid fa-minus"></i></button>
+                                        <div class="cart-product-quantity d-inline">
+                                            <p class="d-inline"><strong>@item.Quantity</strong></p>
+                                        </div><!-- End .cart-product-quantity -->
+                                        <button style="border-radius:50%;" onclick="increase(@item.ProductId)" class="ml-3 btn-outline-success"><i class="fa-solid fa-plus"></i></button>
+                                    </td>
+                                    <td class="total-col"> <h5>@((item.Price * item.Quantity).ToString("C"))</h5></td>
+                                    <td class="remove-col"><a asp-action="DeleteCart" asp-controller="Cart" asp-route-id="@item.ProductId" class="btn-remove"><i class="icon-close"></i></a></td>
+                                </tr>
+                            }
+                            <tr class="bottom_button">
+                                <td>
+                                    <a class="gray_btn" href="#">Update Cart</a>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    <div class="cupon_text d-flex align-items-center">
+                                        <input type="text" placeholder="Coupon Code">
+                                        <a class="primary-btn" href="#">Apply</a>
+                                        <a class="gray_btn" href="#">Close Coupon</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    <h5>Subtotal</h5>
+                                </td>
+                                <td>
+                                    <h5>$2160.00</h5>
+                                </td>
+                            </tr>
+                            <tr class="shipping_area">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    <h5>Shipping</h5>
+                                </td>
+                                <td>
+                                    <div class="shipping_box">
+                                        <ul class="list">
+                                            <li><a href="#">Flat Rate: $5.00</a></li>
+                                            <li><a href="#">Free Shipping</a></li>
+                                            <li><a href="#">Flat Rate: $10.00</a></li>
+                                            <li class="active"><a href="#">Local Delivery: $2.00</a></li>
+                                        </ul>
+                                        <h6>Calculate Shipping <i class="fa fa-caret-down" aria-hidden="true"></i></h6>
+                                        <select class="shipping_select">
+                                            <option value="1">Bangladesh</option>
+                                            <option value="2">India</option>
+                                            <option value="4">Pakistan</option>
+                                        </select>
+                                        <select class="shipping_select">
+                                            <option value="1">Select a State</option>
+                                            <option value="2">Select a State</option>
+                                            <option value="4">Select a State</option>
+                                        </select>
+                                        <input type="text" placeholder="Postcode/Zipcode">
+                                        <a class="gray_btn" href="#">Update Details</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="out_button_area">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    <div class="checkout_btn_inner d-flex align-items-center">
+                                        <a class="gray_btn" asp-action="Index" asp-controller="Product">Alışverişe Devam Et</a>
+                                        <a class="primary-btn" href="#">Ödemeye Geç</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+else
+{
+    <br />
+    <br />
+    <div class="m-5" style="align-items: center;display: flex;justify-content: center;">
+        <img src="~/images/cart.png">
+    </div>
+    <br />
+    <div class="text-center">
+        <p style="font-size:30px;">Sepetinizde Ürün Bulunmamaktadır</p>
+    </div>
+    <br />
+    <br />
+}

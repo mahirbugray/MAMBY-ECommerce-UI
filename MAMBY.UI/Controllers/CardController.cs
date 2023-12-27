@@ -2,6 +2,7 @@
 using MAMBY.UI.SessionExtensions;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Security.Claims;
 using System.Text;
 
 namespace MAMBY.UI.Controllers
@@ -19,8 +20,6 @@ namespace MAMBY.UI.Controllers
         public IActionResult Index()
         {
             card = GetCards();
-            TempData["TotalQuantity"] = TotalQuantity(card).ToString();
-            TempData["TotalPrice"] = TotalPrice(card).ToString();
             return View(card);
         }
         public async Task<IActionResult> Add(ProductViewModel model, int quantity)
@@ -45,13 +44,9 @@ namespace MAMBY.UI.Controllers
                     card = AddCard(card, cardLineViewModel);
                     SaveCard(card);
 
-                    TempData["TotalQuantity"] = TotalQuantity(card).ToString();
-                    TempData["TotalPrice"] = TotalPrice(card).ToString();
-
                     return RedirectToAction("Index");
                 }
                 else
-
                 {
                     return View("Index", "ErrorPage");          //404 e döndürülecek.
                 }
@@ -62,7 +57,48 @@ namespace MAMBY.UI.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
-
+        public IActionResult GetCartAjax()
+        {
+            var cart = HttpContext.Session.GetJson<List<CardLineViewModel>>("cart") ?? new List<CardLineViewModel>();
+            TempData["TotalPrice"] = TotalPrice(cart);
+            return PartialView("CartPartial", cart);
+        }
+        [HttpGet]
+        public int Decrease(int id)
+        {
+            var cart = HttpContext.Session.GetJson<List<CardLineViewModel>>("cart") ?? new List<CardLineViewModel>();
+            foreach (var item in cart)
+            {
+                if (item.ProductId == id)
+                {
+                    item.Quantity--;
+                    if (item.Quantity == 0)
+                    {
+                        cart.Remove(item);
+                        HttpContext.Session.SetJson("cart", cart);
+                        return 0;
+                    }
+                    HttpContext.Session.SetJson("cart", cart);
+                    return item.Quantity;
+                }
+            }
+            return 0;
+        }
+        [HttpGet]
+        public int Increase(int id)
+        {
+            var cart = HttpContext.Session.GetJson<List<CardLineViewModel>>("cart") ?? new List<CardLineViewModel>();
+            foreach (var item in cart)
+            {
+                if (item.ProductId == id)
+                {
+                    item.Quantity++;
+                    HttpContext.Session.SetJson("cart", cart);
+                    return item.Quantity;
+                }
+            }
+            return 0;
+        }
         public IActionResult Delete(int id)
         {
             card = GetCards();
@@ -72,21 +108,18 @@ namespace MAMBY.UI.Controllers
         }
         public List<CardLineViewModel> GetCards()
         {
-            var card = HttpContext.Session.GetJson<List<CardLineViewModel>>("card") ?? new List<CardLineViewModel>();
+            var card = HttpContext.Session.GetJson<List<CardLineViewModel>>("cart") ?? new List<CardLineViewModel>();
             return card;
         }
         public void SaveCard(List<CardLineViewModel> card)
         {
-            HttpContext.Session.SetJson("card", card);
+            HttpContext.Session.SetJson("cart", card);
         }
         public IActionResult DeleteCard()
         {
             HttpContext.Session.Clear();
             return RedirectToAction("Index");
         }
-
-
-
         public List<CardLineViewModel> AddCard(List<CardLineViewModel> card, CardLineViewModel cardLine)
         {
             if (card.Any(cd => cd.ProductId == cardLine.ProductId))
@@ -120,12 +153,13 @@ namespace MAMBY.UI.Controllers
             var totalPrice = card.Sum(c => c.Quantity * c.Price);
             return totalPrice;
         }
+        public IActionResult UpdateCard()
+        {
+            var cart = HttpContext.Session.GetJson<List<CardLineViewModel>>("cart") ?? new List<CardLineViewModel>();
+            return PartialView("CartPartialView", cart);
+        }
     }
 }
 
 
-//Sepete ekleye basıldığında movielerdekinden cardline new lenecek içine ürün bilgileri atılacak. Gidip sessiona bakıp ona göre işlem yapılacak cardline card a eklenip işleme devam edilecek. Alışveriş onayla denildiğinde create card oluşturulacak. saledetail  oluşacak bitince sessiondaki sepet boşaltılacak.
-
-
-//Sepeteekle metoduna sessiondaki user a bakılacak ona göre ekleme yapılacak user yoksa logine yönlendirme yap.
-
+//İtem quantitynin son hali ekrana basılacak alt taraflar düzenlenecek toplam fiyat basılacak sale kısmına geçiş yapılacak.
