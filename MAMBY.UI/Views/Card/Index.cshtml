@@ -75,5 +75,36 @@
                 currency: 'TRY'
             }).format(value);
         }
+
+        function updateTotalPriceDisplay(totalPrice) {
+            var totalPriceDisplay = document.getElementById('totalPriceDisplay');
+            totalPriceDisplay.textContent = '₺ ' + totalPrice.toFixed(2);
+        }
+
+        // Sayfa yüklendiğinde veya başka bir olayda bu fonksiyonu çağırabilirsiniz.
+        // Örneğin, '@TempData["TotalPrice"]' değeri güncellendikten sonra çağırabilirsiniz.
+        updateTotalPriceDisplay(parseFloat('@TempData["TotalPrice"]'));
+
+        // Ayrıca, radio butonlarına olan event listener'ları da aşağıdaki gibi güncelledim:
+        document.addEventListener('DOMContentLoaded', function () {
+            var freeRadio = document.getElementById('freeRadio');
+            var arasRadio = document.getElementById('arasRadio');
+
+            function updateTotalPrice() {
+                var totalPrice = parseFloat('@TempData["TotalPrice"]');
+
+                if (arasRadio.checked) {
+                    totalPrice += 39.99;
+                } else {
+                    // Handle other cases if needed
+                }
+
+                // Güncellenmiş değeri JavaScript fonksiyonu ile çağır
+                updateTotalPriceDisplay(totalPrice);
+            }
+
+            freeRadio.addEventListener('change', updateTotalPrice);
+            arasRadio.addEventListener('change', updateTotalPrice);
+        });
     </script>
 } 
