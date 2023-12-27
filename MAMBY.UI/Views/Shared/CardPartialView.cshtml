@@ -61,7 +61,7 @@
                             }
                             <tr class="bottom_button">
                                 <td>
-                                    <a class="gray_btn" asp-action="Index" asp-controller="Card">Sepeti Güncelle</a>
+                                    <a class="gray_btn" asp-action="Index" asp-controller="Card">SEPETİ GÜNCELLE</a>
                                 </td>
                                 <td>
                                 </td>
@@ -69,9 +69,10 @@
                                 </td>
                                 <td>
                                     <div class="cupon_text d-flex align-items-center">
-                                        <input type="text" placeholder="Coupon Code">
-                                        <a class="primary-btn" href="#">Apply</a>
-                                        <a class="gray_btn" href="#">Close Coupon</a>
+                                        <input type="text" placeholder="KUPON KODU">
+
+                                        <a class="primary-btn" href="#">KULLAN</a>
+                                      @*<a class="gray_btn" href="#">Close Coupon</a> *@
                                     </div>
                                 </td>
                             </tr>
@@ -81,10 +82,10 @@
                                 <td>
                                 </td>
                                 <td>
-                                    <h5>Subtotal</h5>
+                                    <h5>Ara Toplam</h5>
                                 </td>
                                 <td>
-                                    <h5>$2160.00</h5>
+                                    <h5>₺ @TempData["TotalPrice"]</h5>
                                 </td>
                             </tr>
                             <tr class="shipping_area">
@@ -93,29 +94,18 @@
                                 <td>
                                 </td>
                                 <td>
-                                    <h5>Shipping</h5>
                                 </td>
                                 <td>
                                     <div class="shipping_box">
-                                        <ul class="list">
-                                            <li><a href="#">Flat Rate: $5.00</a></li>
-                                            <li><a href="#">Free Shipping</a></li>
-                                            <li><a href="#">Flat Rate: $10.00</a></li>
-                                            <li class="active"><a href="#">Local Delivery: $2.00</a></li>
+                                        <ul class="list" >
+                                            <li> <h5>Kargo Bilgileri</h5> </li>
+                                            <li><a href="#">Ücretsiz Kargo (1 Hafta)</a></li>
+                                            <li><a href="#">Aras Kargo : 39.99 ₺ </a></li>
                                         </ul>
-                                        <h6>Calculate Shipping <i class="fa fa-caret-down" aria-hidden="true"></i></h6>
-                                        <select class="shipping_select">
-                                            <option value="1">Bangladesh</option>
-                                            <option value="2">India</option>
-                                            <option value="4">Pakistan</option>
-                                        </select>
-                                        <select class="shipping_select">
-                                            <option value="1">Select a State</option>
-                                            <option value="2">Select a State</option>
-                                            <option value="4">Select a State</option>
-                                        </select>
-                                        <input type="text" placeholder="Postcode/Zipcode">
-                                        <a class="gray_btn" href="#">Update Details</a>
+                                        <input type="text" placeholder="Şehir Girin" style="margin-top: 10px">
+                                        <input type="text" placeholder="Adres Girin">
+                                        <input type="text" placeholder="Posta Kodu">
+                                        <a class="gray_btn" href="#">Detayları Güncelle</a>
                                     </div>
                                 </td>
                             </tr>

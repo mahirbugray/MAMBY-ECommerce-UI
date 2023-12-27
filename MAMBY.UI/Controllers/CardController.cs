@@ -20,6 +20,7 @@ namespace MAMBY.UI.Controllers
         public IActionResult Index()
         {
             card = GetCards();
+            TempData["TotalPrice"] = TotalPrice(card).ToString();
             return View(card);
         }
         public async Task<IActionResult> Add(ProductViewModel model, int quantity)
