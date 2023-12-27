@@ -99,10 +99,6 @@
                                             <input type="radio" name="shippingMethod" id="arasRadio" value="aras" style="height:15px"> 
                                             Aras Kargo : ₺39.99
 
-                                        <input type="text" placeholder="Şehir Girin" style="margin-top: 10px">
-                                        <input type="text" placeholder="Adres Girin">
-                                        <input type="text" placeholder="Posta Kodu">
-                                        <a class="gray_btn" href="#">ADRES BİLGİLERİMİ KAYDET</a>
                                     </div>
                                 </td>
                             </tr>
@@ -116,7 +112,7 @@
                                 <td>
                                     <div class="checkout_btn_inner d-flex align-items-center">
                                         <a class="gray_btn" asp-action="Index" asp-controller="Product">Alışverişe Devam Et</a>
-                                        <a class="primary-btn" href="#">Ödemeye Geç</a>
+                                        <a class="primary-btn" asp-action="Index" asp-controller="Sale">Ödemeye Geç</a>
                                     </div>
                                 </td>
                             </tr>
