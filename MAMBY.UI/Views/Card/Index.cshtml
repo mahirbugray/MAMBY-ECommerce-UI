@@ -4,138 +4,45 @@
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
 
-<section class="banner-area organic-breadcrumb">
-    <div class="container">
-        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
-            <div class="col-first">
-                <h1>Sepet</h1>
-                <nav class="d-flex align-items-center">
-                    <a asp-action="Index" asp-controller="Product" asp-route-id="card.Id ">Ürünler<span class="lnr lnr-arrow-right"></span></a>
-                    <a asp-action="Index" asp-controller="Card" asp-route-id="card.Id ">Sepetim</a>
-                </nav>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End Banner Area -->
-<!--================Cart Area =================-->
-<section class="cart_area">
-    <div class="container">
-        <div class="cart_inner">
-            <div class="table">
-                <table class="table">
-                    @*  <thead> *@
-                    <tr>
-                        <th class="col">Ürünler</th>
-                        <th class="col">Fiyat</th>
-                        <th class="col">Adet</th>
-                        <th class="col">Toplam</th>
-                    </tr>
-                    @* </thead> *@
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    <div class="media">
-                                        <div class="d-flex">
-                                            <img src="@item.ProductViewModel.ThumbnailImage" alt="@item.ProductName"> @*resim eklenicek*@
-                                        </div>
-                                        <div class="media-body">
-                                            <p>@item.ProductViewModel.Description</p>       @*description eklenecek*@
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h5>@item.Price</h5>
-                                </td>
-                                <td>
-                                    <div class="product_count">
-                                        <input type="text" name="qty" id="sst" maxlength="12" value="@item.Quantity" title="Quantity:"
-                                               class="input-text qty">
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                                class="increase items-count" type="button">
-                                            <i class="lnr lnr-chevron-up"></i>
-                                        </button>
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                                class="reduced items-count" type="button">
-                                            <i class="lnr lnr-chevron-down"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h5>@(item.Price * item.Quantity)</h5>
-                                </td>
-                            </tr>
-                        }
-                        <tr class="bottom_button">
-                            <td>
-                                <a class="gray_btn" href="#">SEPETİ GÜNCELLE</a>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                                <div class="cupon_text d-flex align-items-center">
-                                    <input type="text" placeholder="Kupon Kodu">
-                                    <a class="primary-btn" href="#">UYGULA</a>
-                                    <a class="gray_btn" href="#">KUPONU SİL</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                                <h5>Ara Toplam</h5>
-                            </td>
-                            <td>
-                                <h5>@TempData["TotalPrice"]</h5>
-                            </td>
-                        </tr>
-                        <tr class="shipping_area">
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                               
-                            </td>
-                            <td>
-                                <div class="shipping_box">
-                                    <ul class="list">
-                                        <li class="mr-3"><h5>Kargo Seçeneği</h5></li>
-                                        <li><a href="#">Ücretsiz Kargo</a></li>
-                                        <li class="active"><a href="#">Kargo Ücreti: ₺29.99</a></li>
-                                    </ul>
-                                    <h6>ADRES GİRİN</h6>
-                                    <input type="text" placeholder="Şehir">
-                                    <input type="text" placeholder="Adres">
-                                    <input type="text" placeholder="Posta Kodu">
-                                    <a class="gray_btn" href="#">Kaydet</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="out_button_area">
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                                <div class="checkout_btn_inner d-flex align-items-center">
-                                    <a class="gray_btn" href="#">ALIŞVERİŞE DEVAM ET</a>
-                                    <a class="primary-btn" href="#">SEPETİ SİL</a>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</section>
+<div class="page-content">
+    <div class="cart">
+        <div class="container">
+            <partial name="CardPartialView" model="Model" />
+            <!-- End .row -->
+        </div><!-- End .container -->
+    </div><!-- End .cart -->
+</div>
+
+@section Scripts {
+    <script>
+        function increase(id) {
+
+            $.ajax({
+                // type: 'GET',  //default get olduğu için belirtmeden de çalışır
+                url: '/Card/Increase/' + id,
+                success: function (result) {
+                    $('#cartrefresh').load("/Card/UpdateCard")
+
+                },
+                error: function (xhr, status, error) {
+
+                    console.error(error);
+                }
+            });
+        }
+
+        function decrease(id) {
+            $.ajax({
+                //type: 'GET',
+                url: '/Card/Decrease/' + id,
+                success: function (result) {
+                    $("#cartrefresh").load("/Card/UpdateCard")
+                },
+                error: function (xhr, status, error) {
+
+                    console.error(error);
+                }
+            });
+        };
+    </script>
+} 
