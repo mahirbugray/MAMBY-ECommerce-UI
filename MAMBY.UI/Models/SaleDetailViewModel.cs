@@ -17,6 +17,7 @@
         public string CardOwner { get; set; }
         public string CardNumber { get; set; }
 
+
         //Relation
         public ProductViewModel ProductViewModel { get; set; }
         public SaleViewModel SaleViewModel { get; set; }

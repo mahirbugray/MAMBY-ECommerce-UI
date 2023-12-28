@@ -18,6 +18,5 @@
         public int Point { get; set; }
         public int CategoryId { get; set; }
         public CategoryViewModel Category { get; set; }
-
     }
 }
