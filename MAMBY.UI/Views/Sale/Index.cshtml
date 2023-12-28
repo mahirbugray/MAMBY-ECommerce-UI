@@ -25,8 +25,9 @@
         <div class="billing_details">
             <div class="row">
                 <div class="col-lg-8">
-                    <h3>Billing Details</h3>
-                    <form class="row contact_form" action="#" method="post" novalidate="novalidate">
+                    <h3>Fatura Bilgileri</h3>
+                    <form class="row contact_form" asp-action="ConfirmPayment" asp-controller="Sale" method="post" novalidate="novalidate">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="col-md-6 form-group p_star">
                             <input type="text" class="form-control" id="first" asp-for="Name" readonly>
                         </div>
@@ -34,7 +35,7 @@
                             <input type="text" class="form-control" id="last" asp-for="Surname" readonly>
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="company" asp-for="Address" placeholder="Company name" readonly>
+                            <input type="text" class="form-control" id="company" asp-for="Address" placeholder="Adres" readonly>
                         </div>
                         <div class="col-md-6 form-group p_star">
                             <input type="text" class="form-control" id="number" asp-for="PhoneNumber" readonly>
@@ -43,52 +44,47 @@
                             <input type="text" class="form-control" id="email" asp-for="Email" readonly>
                         </div>
                         <div class="col-md-12 form-group p_star">
-                            <input type="text" class="form-control" id="add1" name="add1">
-                            <span class="placeholder" data-placeholder="Ülke"></span>
+                            <input type="text" class="form-control" id="şehir" name="Şehir" placeholder="Şehir">
                         </div>
                         <div class="col-md-12 form-group p_star">
-                            <input type="text" class="form-control" id="add1" name="add1">
-                            <span class="placeholder" data-placeholder="Şehir"></span>
+                            <input type="text" class="form-control" id="mahalle" name="Mahalle" placeholder="Mahalle">
                         </div>
                         <div class="col-md-12 form-group p_star">
-                            <input type="text" class="form-control" id="add2" name="add2">
-                            <span class="placeholder" data-placeholder="Mahalle / Sokak"></span>
-                        </div>
-                        <div class="col-md-12 form-group p_star">
-                            <input type="text" class="form-control" id="city" name="city">
-                            <span class="placeholder" data-placeholder="Bina"></span>
+                            <input type="text" class="form-control" id="bina" name="bina" placeholder="Bina No">
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="zip" name="zip" placeholder="Postcode/ZIP">
+                            <input type="text" class="form-control" id="postakodu" name="postakodu" placeholder="Posta Kodu">
                         </div>
+                        <div class="col-lg-4">
+                            <div class="order_box">
+                                <h2>Faturanız</h2>
+                                <ul class="list">
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <strong class="text-start">ÜRÜN</strong>
+                                        <strong class="text-center">ADET</strong>
+                                        <strong class="text-right">FİYAT</strong>
+                                    </li>
+                                    @foreach (var item in ViewBag.cart)
+                                    {
+                                        <li class="list-group-item d-flex justify-content-between">
+                                            <span class="text-start">@item.ProductName</span>
+                                            <span class="text-center">@item.Quantity</span>
+                                            <span class="text-right">@item.Price</span>
+                                        </li>
+                                    }
+                                </ul>
+                                <ul class="list list_2 mt-5">
+                                    <li><strong>Toplam Fiyat : </strong><span>@ViewBag.TotalPrice</span></li>
+                                </ul>
+                                <a class="primary-btn mt-5" asp-action="SaleDetail" asp-controller="Sale">Ödeme Yap</a>
+                            </div>
+                        </div>
+                        <partial name="CreaditCardPartialView" />
                     </form>
-                     <partial name="CreaditCardPartialView" />
+                     
                  </div>
 
-                <div class="col-lg-4">
-                    <div class="order_box">
-                        <h2>Faturanız</h2>
-                        <ul class="list">
-                            <li class="list-group-item d-flex justify-content-between">
-                                <strong class="text-start">ÜRÜN</strong>
-                                <strong class="text-center">ADET</strong>
-                                <strong class="text-right">FİYAT</strong>
-                            </li>
-                            @foreach (var item in ViewBag.cart)
-                            {
-                                <li class="list-group-item d-flex justify-content-between">
-                                    <span class="text-start">@item.ProductName</span>
-                                    <span class="text-center">@item.Quantity</span>
-                                    <span class="text-right">@item.Price</span>
-                                </li>
-                            }
-                        </ul>
-                        <ul class="list list_2 mt-5">
-                            <li><strong>Toplam Fiyat : </strong><span>@ViewBag.TotalPrice</span></li>
-                        </ul>
-                        <a class="primary-btn mt-5" href="#">Ödeme Yap</a>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>

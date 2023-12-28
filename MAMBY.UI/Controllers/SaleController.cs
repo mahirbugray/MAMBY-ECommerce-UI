@@ -15,7 +15,7 @@ namespace MAMBY.UI.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string error)
         {
             var cart = HttpContext.Session.GetString("cart");
             var data = JsonConvert.DeserializeObject<List<CardLineViewModel>>(cart);
@@ -23,6 +23,10 @@ namespace MAMBY.UI.Controllers
             ViewBag.cart = data;
             var user = HttpContext.Session.GetString("user");
             var userData = JsonConvert.DeserializeObject<UserViewModel>(user);
+            if (error != null) 
+            {
+                ModelState.AddModelError("", error);
+            }
             return View(userData);
         }
 
@@ -61,6 +65,42 @@ namespace MAMBY.UI.Controllers
             {
                 return View("Error");
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult>ConfirmPayment(SaleDetailViewModel model) //ödeme yap
+        {
+            TempData["user"] = HttpContext.Session.GetString("user");
+
+            try
+            {
+				var cart = HttpContext.Session.GetJson<CardLineViewModel>("cart");
+				var client = _httpClientFactory.CreateClient();
+				var jsonData = JsonConvert.SerializeObject(model);
+				var content = new StringContent(jsonData, encoding: Encoding.UTF8, "application/json");
+				var result = await client.PostAsync("https://localhost:7266/api/CreateSaleDetail/", content);
+				if (result.IsSuccessStatusCode)
+				{
+					var data = JsonConvert.DeserializeObject<SaleDetailViewModel>(jsonData);
+					return RedirectToAction("SaleDetail", "Sale");
+
+				}
+				else
+				{
+					return RedirectToAction("Index", new {error ="Ödeme işlemi başarısız oldu. Tekrar deneyin."});
+				}
+			}
+            catch (Exception)
+            {
+				return View();
+			}
+            
+		}
+
+        [HttpGet]
+        public async Task<IActionResult> SaleDetail() // Satış detayı
+        {
+            return View();
         }
     }
 }
