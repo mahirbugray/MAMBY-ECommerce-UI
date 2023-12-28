@@ -76,13 +76,16 @@
                                 </td>
                             </tr>
                             <tr>
+
                                 <td>
+                                    <h5>Ara Toplam</h5>
                                 </td>
                                 <td>
                                     <h5>Ara Toplam</h5>
                                 </td>
                                 <td colspan="2">
-                                    <h5 id="totalPriceDisplay">@TempData["TotalPrice"]</h5>
+                                    <input type="hidden" id="totalPrice" value="@ViewBag.Card">
+                                    <h5 id="totalPriceDisplay">@ViewBag.Card</h5>
                                 </td>
                             </tr>
                             <tr class="shipping_area">

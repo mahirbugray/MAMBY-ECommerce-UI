@@ -78,12 +78,12 @@
 
         function updateTotalPriceDisplay(totalPrice) {
             var totalPriceDisplay = document.getElementById('totalPriceDisplay');
-            totalPriceDisplay.textContent = '₺ ' + totalPrice.toFixed(2);
+            totalPriceDisplay.textContent = '₺ ' + Math.round(totalPrice * 100) / 100;
         }
 
         // Sayfa yüklendiğinde veya başka bir olayda bu fonksiyonu çağırabilirsiniz.
         // Örneğin, '@TempData["TotalPrice"]' değeri güncellendikten sonra çağırabilirsiniz.
-        updateTotalPriceDisplay(parseFloat('@TempData["TotalPrice"]'));
+        updateTotalPriceDisplay(parseFloat('@ViewBag.Card'));
 
         // Ayrıca, radio butonlarına olan event listener'ları da aşağıdaki gibi güncelledim:
         document.addEventListener('DOMContentLoaded', function () {
@@ -91,7 +91,7 @@
             var arasRadio = document.getElementById('arasRadio');
 
             function updateTotalPrice() {
-                var totalPrice = parseFloat('@TempData["TotalPrice"]');
+                var totalPrice = parseFloat('@ViewBag.Card');
 
                 if (arasRadio.checked) {
                     totalPrice += 39.99;

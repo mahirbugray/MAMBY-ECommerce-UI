@@ -31,22 +31,18 @@
                     <form class="row contact_form" action="#" method="post" novalidate="novalidate">
                         <div class="col-md-6 form-group p_star">
                             <input type="text" class="form-control" id="first" asp-for="Name" readonly>
-                            <span class="placeholder" data-placeholder="First name"></span>
                         </div>
                         <div class="col-md-6 form-group p_star">
                             <input type="text" class="form-control" id="last" asp-for="Surname" readonly>
-                            <span class="placeholder" data-placeholder="Last name"></span>
                         </div>
                         <div class="col-md-12 form-group">
                             <input type="text" class="form-control" id="company" asp-for="Address" placeholder="Company name" readonly>
                         </div>
                         <div class="col-md-6 form-group p_star">
                             <input type="text" class="form-control" id="number" asp-for="PhoneNumber" readonly>
-                            <span class="placeholder" data-placeholder="Phone number"></span>
                         </div>
                         <div class="col-md-6 form-group p_star">
                             <input type="text" class="form-control" id="email" asp-for="Email" readonly>
-                            <span class="placeholder" data-placeholder="Email Address"></span>
                         </div>
                         <div class="col-md-12 form-group p_star">
                             <select class="country_select">
@@ -79,13 +75,7 @@
                         </div>
                         <div class="col-md-12 form-group">
                             <div class="creat_account">
-                                <input type="checkbox" id="f-option2" name="selector">
-                                <label for="f-option2">Create an account?</label>
-                            </div>
-                        </div>
-                        <div class="col-md-12 form-group">
-                            <div class="creat_account">
-                                <h3>Shipping Details</h3>
+                                <h3>Kart Bilgileriniz</h3>
                                 <input type="checkbox" id="f-option3" name="selector">
                                 <label for="f-option3">Ship to a different address?</label>
                             </div>
@@ -93,54 +83,29 @@
                         </div>
                     </form>
                 </div>
-                
+
                 <div class="col-lg-4">
                     <div class="order_box">
-                        <h2>Your Order</h2>
+                        <h2>Faturanız</h2>
                         <ul class="list">
-                            <li><span>ÜRÜN</span><span>ADET</span><span>FİYAT</span></li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <strong class="text-start">ÜRÜN</strong>
+                                <strong class="text-center">ADET</strong>
+                                <strong class="text-right">FİYAT</strong>
+                            </li>
                             @foreach (var item in ViewBag.cart)
                             {
-                                <li>
-                                    <span>@item.ProductName</span><span>@item.Quantity</span><span>@item.Price</span>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span class="text-start">@item.ProductName</span>
+                                    <span class="text-center">@item.Quantity</span>
+                                    <span class="text-right">@item.Price</span>
                                 </li>
                             }
-                            
                         </ul>
-                        <ul class="list list_2">
-                            <li><strong>Toplam Fiyat:</strong><span>@TempData["TotalPrice"]</span></li>
-                            <li><a href="#">Shipping <span>Flat rate: $50.00</span></a></li>
-                            <li><a href="#">Total <span>$2210.00</span></a></li>
+                        <ul class="list list_2 mt-5">
+                            <li><strong>Toplam Fiyat:</strong><span>@ViewBag.cart.TotalPrice</span></li>
                         </ul>
-                        <div class="payment_item">
-                            <div class="radion_btn">
-                                <input type="radio" id="f-option5" name="selector">
-                                <label for="f-option5">Check payments</label>
-                                <div class="check"></div>
-                            </div>
-                            <p>
-                                Please send a check to Store Name, Store Street, Store Town, Store State / County,
-                                Store Postcode.
-                            </p>
-                        </div>
-                        <div class="payment_item active">
-                            <div class="radion_btn">
-                                <input type="radio" id="f-option6" name="selector">
-                                <label for="f-option6">Paypal </label>
-                                <img src="img/product/card.jpg" alt="">
-                                <div class="check"></div>
-                            </div>
-                            <p>
-                                Pay via PayPal; you can pay with your credit card if you don’t have a PayPal
-                                account.
-                            </p>
-                        </div>
-                        <div class="creat_account">
-                            <input type="checkbox" id="f-option4" name="selector">
-                            <label for="f-option4">I’ve read and accept the </label>
-                            <a href="#">terms & conditions*</a>
-                        </div>
-                        <a class="primary-btn" href="#">Proceed to Paypal</a>
+                        <a class="primary-btn mt-5" href="#">Ödeme Yap</a>
                     </div>
                 </div>
             </div>
