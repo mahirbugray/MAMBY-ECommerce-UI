@@ -15,28 +15,28 @@
 
 @section Scripts {
     <script>
-        function increase(id ,price) {
-
+        function increase(id, price) {
             $.ajax({
                 // type: 'GET',  //default get olduğu için belirtmeden de çalışır
                 url: '/Card/Increase/' + id,
                 success: function (result) {
                     $('#cartrefresh').load("/Card/UpdateCard")
                     var element = document.getElementById(`quantityid_${id}`);
-                    var totalPrice = document.getElementById(`totalprice_${id}`)
+                    var totalPrice = document.getElementById(`totalprice_${id}`);
                     if (element && totalPrice) {
                         element.textContent = result;
                         var total = result * price;
                         var formattedTotal = formatCurrency(total);
 
                         totalPrice.textContent = formattedTotal;
-                    }
-                    else {
+
+                        // Toplam fiyatı güncelle
+                        updateTotalPriceDisplay(parseFloat('@ViewBag.Card') + total);
+                    } else {
                         console.error(``);
                     }
                 },
                 error: function (xhr, status, error) {
-
                     console.error(error);
                 }
             });
@@ -49,25 +49,25 @@
                 success: function (result) {
                     $("#cartrefresh").load("/Card/UpdateCard")
                     var element = document.getElementById(`quantityid_${id}`);
-                    var totalPrice = document.getElementById(`totalprice_${id}`)
+                    var totalPrice = document.getElementById(`totalprice_${id}`);
                     if (element && totalPrice) {
                         element.textContent = result;
                         var total = result * price;
-
                         var formattedTotal = formatCurrency(total);
 
                         totalPrice.textContent = formattedTotal;
-                    }
-                    else {
+
+                        // Toplam fiyatı güncelle
+                        updateTotalPriceDisplay(parseFloat('@ViewBag.Card') + total);
+                    } else {
                         console.error(``);
                     }
                 },
                 error: function (xhr, status, error) {
-
                     console.error(error);
                 }
             });
-        };
+        }
 
         function formatCurrency(value) {
             return new Intl.NumberFormat('tr-TR', {
@@ -78,7 +78,7 @@
 
         function updateTotalPriceDisplay(totalPrice) {
             var totalPriceDisplay = document.getElementById('totalPriceDisplay');
-            totalPriceDisplay.textContent = '₺ ' + Math.round(totalPrice * 100) / 100;
+            totalPriceDisplay.textContent = formatCurrency(totalPrice);
         }
 
         // Sayfa yüklendiğinde veya başka bir olayda bu fonksiyonu çağırabilirsiniz.
@@ -107,4 +107,4 @@
             arasRadio.addEventListener('change', updateTotalPrice);
         });
     </script>
-} 
+}
