@@ -20,7 +20,7 @@ namespace MAMBY.UI.Controllers
         public IActionResult Index()
         {
             card = GetCards();
-            TempData["TotalPrice"] = TotalPrice(card).ToString();
+            ViewBag.Card = card.Sum(x => x.TotalPrice);
             return View(card);
         }
         public async Task<IActionResult> Add(ProductViewModel model, int quantity)
@@ -40,7 +40,8 @@ namespace MAMBY.UI.Controllers
                         Quantity = quantity,
                         ProductName = data.Name,
                         Price = data.Price,
-                        ProductViewModel = data
+                        ProductViewModel = data,
+                        TotalPrice = 1* data.Price
                     };
                     card = AddCard(card, cardLineViewModel);
                     SaveCard(card);
@@ -79,6 +80,7 @@ namespace MAMBY.UI.Controllers
                         HttpContext.Session.SetJson("cart", cart);
                         return 0;
                     }
+                    item.TotalPrice = item.Quantity * item.Price;
                     HttpContext.Session.SetJson("cart", cart);
                     return item.Quantity;
                 }
@@ -94,6 +96,7 @@ namespace MAMBY.UI.Controllers
                 if (item.ProductId == id)
                 {
                     item.Quantity++;
+                    item.TotalPrice = item.Quantity * item.Price;
                     HttpContext.Session.SetJson("cart", cart);
                     return item.Quantity;
                 }
@@ -163,4 +166,3 @@ namespace MAMBY.UI.Controllers
 }
 
 
-//İtem quantitynin son hali ekrana basılacak alt taraflar düzenlenecek toplam fiyat basılacak sale kısmına geçiş yapılacak.
