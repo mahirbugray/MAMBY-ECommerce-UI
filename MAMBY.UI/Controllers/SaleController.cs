@@ -19,6 +19,7 @@ namespace MAMBY.UI.Controllers
         {
             var cart = HttpContext.Session.GetString("cart");
             var data = JsonConvert.DeserializeObject<List<CardLineViewModel>>(cart);
+            ViewBag.TotalPrice = data.Sum(x => x.TotalPrice);
             ViewBag.cart = data;
             var user = HttpContext.Session.GetString("user");
             var userData = JsonConvert.DeserializeObject<UserViewModel>(user);
