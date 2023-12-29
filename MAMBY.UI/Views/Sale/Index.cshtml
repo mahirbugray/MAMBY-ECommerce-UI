@@ -74,6 +74,7 @@
                                     }
                                 </ul>
                                 <ul class="list list_2 mt-5">
+                                    <input type="hidden" asp-for="totalPrice" value="@Model.totalPrice" />
                                     <li><strong>Toplam Fiyat : </strong><span>@Model.totalPrice</span></li>
                                 </ul>
                                 <button class="primary-btn mt-5" type="submit">Ödeme Yap</button>
