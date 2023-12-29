@@ -72,10 +72,7 @@ namespace MAMBY.UI.Controllers
         public async Task<IActionResult> ConfirmPayment(PaymentViewModel model, string cardNo, string cardName, string cardMounth, string cardYear, string cardCvv) //ödeme yap
         {
             var cart = HttpContext.Session.GetJson<List<CardLineViewModel>>("cart");
-            foreach (var item in cart)
-            {
-                item.Price =10;
-            }
+            
             TempData["user"] = HttpContext.Session.GetString("user");
             PaymentPostViewModel paymentPostViewModel = new PaymentPostViewModel()
             {
