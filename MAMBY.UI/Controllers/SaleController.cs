@@ -1,7 +1,9 @@
 ﻿using MAMBY.UI.Models;
 using MAMBY.UI.SessionExtensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace MAMBY.UI.Controllers
@@ -19,15 +21,22 @@ namespace MAMBY.UI.Controllers
         {
             var cart = HttpContext.Session.GetString("cart");
             var data = JsonConvert.DeserializeObject<List<CardLineViewModel>>(cart);
-            ViewBag.TotalPrice = data.Sum(x => x.TotalPrice);
-            ViewBag.cart = data;
+            decimal total = data.Sum(x => x.TotalPrice);
             var user = HttpContext.Session.GetString("user");
             var userData = JsonConvert.DeserializeObject<UserViewModel>(user);
-            if (error != null) 
+            PaymentViewModel paymentViewModel = new PaymentViewModel()
+            {
+                User = userData,
+                cardLines = data,
+                totalPrice = total
+
+
+            };
+            if (error != null)
             {
                 ModelState.AddModelError("", error);
             }
-            return View(userData);
+            return View(paymentViewModel);
         }
 
         [HttpPost]
@@ -37,20 +46,12 @@ namespace MAMBY.UI.Controllers
             decimal totalPrice = cart.Sum(x => x.Price);
             int totalQuantity = cart.Sum(x => x.Quantity);
 
-            SaleViewModel saleViewModel = new SaleViewModel()
-            {
-                DateTime = DateTime.Now,
-                IsDeleted = false,
-                TotalPrice = totalPrice,
-                TotalQuantity = totalQuantity
-            };
-
             try
             {
-                var jsonData = JsonConvert.SerializeObject(saleViewModel);
+                var jsonData = JsonConvert.SerializeObject(cart);
                 var client = _httpClientFactory.CreateClient();
                 var content = new StringContent(jsonData, encoding: Encoding.UTF8, "application/json");
-                var result = await client.PostAsync("https://localhost:7266/api/CreateSale/", content);
+                var result = await client.PostAsync("https://localhost:7266/api/Sale/CreateSale/", content);
 
                 if (result.IsSuccessStatusCode)
                 {
@@ -68,34 +69,56 @@ namespace MAMBY.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult>ConfirmPayment(SaleDetailViewModel model) //ödeme yap
+        public async Task<IActionResult> ConfirmPayment(PaymentViewModel model, string cardNo, string cardName, string cardMounth, string cardYear, string cardCvv) //ödeme yap
         {
+            var cart = HttpContext.Session.GetJson<List<CardLineViewModel>>("cart");
+            foreach (var item in cart)
+            {
+                item.Price =10;
+            }
             TempData["user"] = HttpContext.Session.GetString("user");
+            PaymentPostViewModel paymentPostViewModel = new PaymentPostViewModel()
+            {
+                cardLines = cart,
+                cardMounth = cardMounth,
+                cardYear = cardYear,
+                cardCvv = cardCvv,
+                postCode= model.postCode,
+                neighbourhood= model.neighbourhood,
+                aptNo = model.aptNo,
+                cardName = cardName,
+                cardNo = cardNo,
+                city= model.city,
+                totalPrice = model.totalPrice
+            };
 
             try
             {
-				var cart = HttpContext.Session.GetJson<CardLineViewModel>("cart");
-				var client = _httpClientFactory.CreateClient();
-				var jsonData = JsonConvert.SerializeObject(model);
-				var content = new StringContent(jsonData, encoding: Encoding.UTF8, "application/json");
-				var result = await client.PostAsync("https://localhost:7266/api/CreateSaleDetail/", content);
-				if (result.IsSuccessStatusCode)
-				{
-					var data = JsonConvert.DeserializeObject<SaleDetailViewModel>(jsonData);
-					return RedirectToAction("SaleDetail", "Sale");
 
-				}
-				else
-				{
-					return RedirectToAction("Index", new {error ="Ödeme işlemi başarısız oldu. Tekrar deneyin."});
-				}
-			}
+                string token = JsonConvert.DeserializeObject<UserViewModel>(HttpContext.Session.GetString("user")).AccessToken;      
+                var client = _httpClientFactory.CreateClient();  //HttpClient döndürür
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, token);
+                var jsonData = JsonConvert.SerializeObject(paymentPostViewModel);
+                var content = new StringContent(jsonData, encoding: Encoding.UTF8, "application/json");
+                var result = await client.PostAsync("https://localhost:7266/api/Sale/CreateSale", content);
+                var errorMessage = await result.Content.ReadAsStringAsync();
+                if (result.IsSuccessStatusCode)
+                {
+                    var data = JsonConvert.DeserializeObject<SaleDetailViewModel>(jsonData);
+                    return RedirectToAction("SaleDetail", "Sale");
+
+                }
+                else
+                {
+                    return RedirectToAction("Index", new { error = "Ödeme işlemi başarısız oldu. Tekrar deneyin." });
+                }
+            }
             catch (Exception)
             {
-				return View();
-			}
-            
-		}
+                return View();
+            }
+
+        }
 
         [HttpGet]
         public async Task<IActionResult> SaleDetail() // Satış detayı

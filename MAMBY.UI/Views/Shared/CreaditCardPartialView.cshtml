@@ -288,24 +288,24 @@ label {
         <label for="card-number">
             Card Number
         </label>
-        <input type="text" id="card-number" placeholder="1234 5678 9101 1112" length="16">
+        <input type="text" id="card-number" name="cardNo" placeholder="1234 5678 9101 1112" length="16">
         <div id="cardholder-container">
             <label for="card-holder">
                 Card Holder
             </label>
-            <input type="text" id="card-holder" placeholder="e.g. John Doe" />
+            <input type="text" id="card-holder" name="cardName" placeholder="e.g. John Doe" />
         </div>
         <!--- end card holder container --->
         <div id="exp-container">
             <label for="card-exp">
                 Expiration
             </label>
-            <input id="card-month" type="text" placeholder="MM" length="2">
-            <input id="card-year" type="text" placeholder="YY" length="2">
+            <input id="card-month" type="text" name="cardMounth" placeholder="MM" length="2">
+            <input id="card-year" type="text" name="cardYear" placeholder="YY" length="2">
         </div>
         <div id="cvc-container">
             <label for="card-cvc"> CVC/CVV</label>
-            <input id="card-cvc" placeholder="XXX-X" type="text" min-length="3" max-length="4">
+            <input id="card-cvc" placeholder="XXX-X" name="cardCvv" type="text" min-length="3" max-length="4">
             <p>Last 3 or 4 digits</p>
         </div>
         <!--- end CVC container --->
