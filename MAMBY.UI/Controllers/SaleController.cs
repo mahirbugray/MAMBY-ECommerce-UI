@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MAMBY.UI.Controllers
 {
@@ -49,8 +50,9 @@ namespace MAMBY.UI.Controllers
             try
             {
                 var jsonData = JsonConvert.SerializeObject(cart);
-                var client = _httpClientFactory.CreateClient();
-                var content = new StringContent(jsonData, encoding: Encoding.UTF8, "application/json");
+                string token = JsonConvert.DeserializeObject<UserViewModel>(HttpContext.Session.GetString("user")).AccessToken;
+                var client = _httpClientFactory.CreateClient();  //HttpClient döndürür
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, token); var content = new StringContent(jsonData, encoding: Encoding.UTF8, "application/json");
                 var result = await client.PostAsync("https://localhost:7266/api/Sale/CreateSale/", content);
 
                 if (result.IsSuccessStatusCode)
@@ -88,7 +90,6 @@ namespace MAMBY.UI.Controllers
                 city= model.city,
                 totalPrice = model.totalPrice
             };
-
             try
             {
 
@@ -101,7 +102,6 @@ namespace MAMBY.UI.Controllers
                 var errorMessage = await result.Content.ReadAsStringAsync();
                 if (result.IsSuccessStatusCode)
                 {
-                    var data = JsonConvert.DeserializeObject<SaleDetailViewModel>(jsonData);
                     return RedirectToAction("SaleDetail", "Sale");
 
                 }
@@ -118,7 +118,7 @@ namespace MAMBY.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> SaleDetail() // Satış detayı
+        public IActionResult SaleDetail()
         {
             return View();
         }
