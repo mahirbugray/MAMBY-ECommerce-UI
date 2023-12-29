@@ -1,4 +1,4 @@
-﻿@model UserViewModel
+﻿@model PaymentViewModel
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
@@ -29,31 +29,31 @@
                     <form class="row contact_form" asp-action="ConfirmPayment" asp-controller="Sale" method="post" novalidate="novalidate">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="col-md-6 form-group p_star">
-                            <input type="text" class="form-control" id="first" asp-for="Name" readonly>
+                            <input type="text" class="form-control" id="first" asp-for="User.Name" readonly>
                         </div>
                         <div class="col-md-6 form-group p_star">
-                            <input type="text" class="form-control" id="last" asp-for="Surname" readonly>
+                            <input type="text" class="form-control" id="last" asp-for="User.Surname" readonly>
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="company" asp-for="Address" placeholder="Adres" readonly>
+                            <input type="text" class="form-control" id="company" asp-for="User.Address" placeholder="Adres" readonly>
                         </div>
                         <div class="col-md-6 form-group p_star">
-                            <input type="text" class="form-control" id="number" asp-for="PhoneNumber" readonly>
+                            <input type="text" class="form-control" id="number" asp-for="User.PhoneNumber" readonly>
                         </div>
                         <div class="col-md-6 form-group p_star">
-                            <input type="text" class="form-control" id="email" asp-for="Email" readonly>
+                            <input type="text" class="form-control" id="email" asp-for="User.Email" readonly>
                         </div>
                         <div class="col-md-12 form-group p_star">
-                            <input type="text" class="form-control" id="şehir" name="Şehir" placeholder="Şehir">
+                            <input type="text" class="form-control" id="şehir" asp-for="city" placeholder="Şehir">
                         </div>
                         <div class="col-md-12 form-group p_star">
-                            <input type="text" class="form-control" id="mahalle" name="Mahalle" placeholder="Mahalle">
+                            <input type="text" class="form-control" id="mahalle"  asp-for="neighbourhood" placeholder="Mahalle">
                         </div>
                         <div class="col-md-12 form-group p_star">
-                            <input type="text" class="form-control" id="bina" name="bina" placeholder="Bina No">
+                            <input type="text" class="form-control" id="bina" asp-for="aptNo" placeholder="Bina No">
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="postakodu" name="postakodu" placeholder="Posta Kodu">
+                            <input type="text" class="form-control" id="postakodu" asp-for="postCode" placeholder="Posta Kodu">
                         </div>
                         <div class="col-lg-4">
                             <div class="order_box">
@@ -64,7 +64,7 @@
                                         <strong class="text-center">ADET</strong>
                                         <strong class="text-right">FİYAT</strong>
                                     </li>
-                                    @foreach (var item in ViewBag.cart)
+                                    @foreach (var item in Model.cardLines)
                                     {
                                         <li class="list-group-item d-flex justify-content-between">
                                             <span class="text-start">@item.ProductName</span>
@@ -74,9 +74,9 @@
                                     }
                                 </ul>
                                 <ul class="list list_2 mt-5">
-                                    <li><strong>Toplam Fiyat : </strong><span>@ViewBag.TotalPrice</span></li>
+                                    <li><strong>Toplam Fiyat : </strong><span>@Model.totalPrice</span></li>
                                 </ul>
-                                <a class="primary-btn mt-5" asp-action="SaleDetail" asp-controller="Sale">Ödeme Yap</a>
+                                <button class="primary-btn mt-5" type="submit">Ödeme Yap</button>
                             </div>
                         </div>
                         <partial name="CreaditCardPartialView" />
