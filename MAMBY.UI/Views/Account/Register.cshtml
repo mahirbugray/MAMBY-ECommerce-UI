@@ -50,7 +50,7 @@
                             <span asp-validation-for="UserName" class="text-danger"></span>
                         </div>
                         <div class="col-md-12 form-group">
-                            <input asp-for="PhoneNumber" type="tel" class="form-control" placeholder="Telefon Numarası" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Telefon Numarası'">
+                            <input asp-for="PhoneNumber" type="tel" class="form-control" placeholder="Telefon Numarası" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Telefon Numarası'" minlength="11" maxlength="11">
                             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                         </div>
                         <div class="col-md-12 form-group">
