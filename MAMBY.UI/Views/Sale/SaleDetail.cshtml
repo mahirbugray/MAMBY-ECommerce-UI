@@ -5,23 +5,26 @@
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
 
+
 <section class="banner-area organic-breadcrumb">
     <div class="container">
         <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
             <div class="col-first">
-                <h1>Confirmation</h1>
+                <h1>Sepet Onaylandı</h1>
                 <nav class="d-flex align-items-center">
-                    <a asp-action="Index" asp-controller="Home">Anasayfa<span class="lnr lnr-arrow-right"></span></a>
+                    <a asp-action="Index" asp-controller="Home">Anasayfa<span class="lnr lnr-arrow-left"></span></a>
                 </nav>
             </div>
         </div>
     </div>
 </section>
+
 <section class="order_details section_gap">
-    <div class="container">
-        <img src="~/theme/img/confirmation.png" /><span class="title_confirmation">TEŞEKKÜRLER</span>
-        <h4 class="title_confirmation">Siparişiniz alındı. Kargoya teslim edildiğinde bilgilendirileceksiniz.</h4>
-        <h2 class="title_confirmation">İyi Günler Dileriz</h2>
-        <a asp-action="Index" asp-controller="Home" class="btn btn-primary">Anasayfaya Dön</a>
+    <div class="container text-center">
+        <img src="~/theme/img/confirmation.png" alt="Confirmation Image" class="mb-4">
+        <span class="title_confirmation">TEŞEKKÜRLER</span>
+        <h4 class="title_confirmation mb-3">Siparişiniz alındı. Kargoya teslim edildiğinde bilgilendirileceksiniz.</h4>
+        <h2 class="title_confirmation mb-5">İyi Günler Dileriz</h2>
+        <a asp-action="Index" asp-controller="Home" class="primary-btn mt-5">Anasayfaya Dön</a>
     </div>
 </section>

@@ -17,6 +17,7 @@ namespace MAMBY.UI.Models
         [Required(ErrorMessage = "Kullanıcı adı alanı boş bırakılamaz.")]
         public string UserName { get; set; }
         [Required(ErrorMessage = "Telefon numarası alanı boş bırakılamaz.")]
+        [StringLength(11, MinimumLength = 11, ErrorMessage = "Telefon Numarası 11 haneli olmalıdır.")]
         public string PhoneNumber { get; set; }
         [Required(ErrorMessage = "E-posta alanı boş bırakılamaz.")]
         [EmailAddress(ErrorMessage = "Geçersiz e-posta adresi.")]
