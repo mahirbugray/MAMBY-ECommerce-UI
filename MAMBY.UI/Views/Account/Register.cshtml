@@ -76,3 +76,8 @@
     </div>
 </section>
 <!--================End Login Box Area =================-->
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
