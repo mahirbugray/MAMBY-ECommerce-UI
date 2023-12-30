@@ -5,25 +5,27 @@ namespace MAMBY.UI.Models
 {
     public class RegisterViewModel
     {
-        [Required(ErrorMessage = "Bu alan boş bırakılamaz.")]
+        [Required(ErrorMessage = "Ad alanı boş bırakılamaz.")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "Bu alan boş bırakılamaz.")]
+        [Required(ErrorMessage = "Soyad alanı boş bırakılamaz.")]
         public string Surname { get; set; }
-        [Required(ErrorMessage = "Bu alan boş bırakılamaz.")]
+        [Required(ErrorMessage = "Doğum tarihi alanı boş bırakılamaz.")]
         [DataType(DataType.Date, ErrorMessage = "Geçersiz tarih formatı.")]
         public DateTime BirthDate { get; set; }
-        [Required(ErrorMessage = "Bu alan boş bırakılamaz.")]
+        [Required(ErrorMessage = "Adres alanı boş bırakılamaz.")]
         public string Address { get; set; }
-        [Required(ErrorMessage = "Bu alan boş bırakılamaz.")]
+        [Required(ErrorMessage = "Kullanıcı adı alanı boş bırakılamaz.")]
         public string UserName { get; set; }
-        [Required(ErrorMessage = "Bu alan boş bırakılamaz.")]
+        [Required(ErrorMessage = "Telefon numarası alanı boş bırakılamaz.")]
         public string PhoneNumber { get; set; }
-        [Required(ErrorMessage = "Bu alan boş bırakılamaz.")]
+        [Required(ErrorMessage = "E-posta alanı boş bırakılamaz.")]
+        [EmailAddress(ErrorMessage = "Geçersiz e-posta adresi.")]
         public string Email { get; set; }
-        [Required(ErrorMessage = "Bu alan boş bırakılamaz.")]
+        [Required(ErrorMessage = "Şifre alanı boş bırakılamaz.")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-        [Compare("Password", ErrorMessage = "Şifreler uyuşmadı!")]
+        [Required(ErrorMessage = "Şifre tekrarı boş bırakılamaz.")]
+        [Compare("Password", ErrorMessage = "Şifreler uyuşmuyor.")]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
     }
