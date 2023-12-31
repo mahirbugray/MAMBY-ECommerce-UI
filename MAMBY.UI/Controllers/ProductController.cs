@@ -39,16 +39,15 @@ namespace MAMBY.UI.Controllers
             }
             else if (search != null)
             {
-                var result = await client.GetAsync("https://localhost:7266/api/Product/GetProductsSearch" + search);
-                var jsonData = await result.Content.ReadAsStringAsync();
+				var result = await client.GetAsync("https://localhost:7266/api/Product/GetProductsSearch/" + search);
+				var jsonData = await result.Content.ReadAsStringAsync();
                 if (result.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     var data = JsonConvert.DeserializeObject<List<ProductViewModel>>(jsonData);
                     return View(data);
                 }
             }
-
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Product");
         }
         [HttpGet]
         public async Task<IActionResult> Details(int id)
