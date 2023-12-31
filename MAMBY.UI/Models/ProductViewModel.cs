@@ -18,5 +18,6 @@
         public int Point { get; set; }
         public int CategoryId { get; set; }
         public CategoryViewModel Category { get; set; }
+        public List<CommandViewModel> Commands { get; set; }
     }
 }
