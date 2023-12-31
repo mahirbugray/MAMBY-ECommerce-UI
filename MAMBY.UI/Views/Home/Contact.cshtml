@@ -44,25 +44,25 @@
 				</div>
 			</div>
 			<div class="col-lg-9">
-				<form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+				<form class="row contact_form" method="post" id="contactForm" novalidate="novalidate">
 					<div class="col-md-6">
 						<div class="form-group">
-							<input type="text" class="form-control" id="name" name="name" placeholder="Adınızı Girin" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Adınızı Girin'">
+							<input type="text" class="form-control" id="İsim" name="İsim" placeholder="Adınızı Girin" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Adınızı Girin'">
 						</div>
 						<div class="form-group">
-							<input type="email" class="form-control" id="email" name="email" placeholder="Mail Adresinizi Girin" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mail Adresinizi Girin'">
+							<input type="email" class="form-control" id="Email" name="Email" placeholder="Mail Adresinizi Girin" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mail Adresinizi Girin'">
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" id="subject" name="subject" placeholder="Konuyu Girin" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Konuyu Girin'">
+							<input type="text" class="form-control" id="Konu" name="Konu" placeholder="Konuyu Girin" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Konuyu Girin'">
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
-							<textarea class="form-control" name="message" id="message" rows="1" placeholder="Mesajınızı Yazın" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mesajınızı Yazın'"></textarea>
+							<textarea class="form-control" id="Mesaj" name="Mesaj" rows="1" placeholder="Mesajınızı Yazın" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mesajınızı Yazın'"></textarea>
 						</div>
 					</div>
 					<div class="col-md-12 text-right">
-						<button type="submit" value="submit" class="primary-btn">Gönder</button>
+						<button type="submit" onclick="createEmail()" value="submit" class="primary-btn">Gönder</button>
 					</div>
 				</form>
 			</div>
@@ -70,3 +70,14 @@
 	</div>
 </section>
 
+<script>
+	function createEmail() {
+		var recipient = 'info@yoursite.com'; // Alıcı e-posta adresi
+		var subject = '\Konu : ' + encodeURIComponent(document.getElementById('Konu').value);
+		var message = encodeURIComponent(document.getElementById('Mesaj').value);
+		var fromEmail = encodeURIComponent(document.getElementById('Email').value); // E-posta textbox'ından alınan değer
+
+		var mailtoLink = `mailto:${recipient}?from=${fromEmail}&subject=${subject}&body=${message}`;
+		window.location.href = mailtoLink;
+	}
+</script>

@@ -53,5 +53,19 @@ namespace MAMBY.UI.Controllers
             }
             return RedirectToAction("Index", "Home");           // 404 sayfası yapılınca ona yönlendirme yapılacak.
         }
-    }
+        [HttpGet]
+        public async Task<IActionResult> GetProductsSearch()
+        {
+            var client = _httpClientFactory.CreateClient();
+            var result = await client.GetAsync("https://localhost:7266/api/Product/GetProductsSearch");
+			var jsonData = await result.Content.ReadAsStringAsync();
+			if (result.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var data = JsonConvert.DeserializeObject<List<ProductViewModel>>(jsonData);
+                return View("Index", data);
+            }
+            return RedirectToAction("Index", "ErrorPage");
+        }
+
+	}
 }
