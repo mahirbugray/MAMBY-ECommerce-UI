@@ -1,6 +1,7 @@
 ﻿using MAMBY.UI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Net.WebSockets;
 using System.Reflection;
 using System.Text;
 
@@ -15,56 +16,50 @@ namespace MAMBY.UI.Controllers
             _httpClientFactory = httpClientFactory;
         }
         [HttpGet]
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index()
         {
-            var client = _httpClientFactory.CreateClient();
-            var result = await client.GetAsync("https://localhost:7266/api/Profile/GetByIdUser/" + id);
-
-            if (result.IsSuccessStatusCode)
+            var user = HttpContext.Session.GetString("user");
+            if (user != null)
             {
-                var jsonResponse = await result.Content.ReadAsStringAsync();
-                var user = JsonConvert.DeserializeObject<UserViewModel>(jsonResponse);
-
-                HttpContext.Session.SetString("user", JsonConvert.SerializeObject(user));
-
-                return View(user);
+                var userData = JsonConvert.DeserializeObject<UserViewModel>(user);
+                return View(userData);
             }
-            else
-            {
-                return BadRequest();
-            }
+            return RedirectToAction("Login", "Account");   
         }
         [HttpGet]
         public IActionResult UpdateProfile()
-        {
-            
+		{
+			var user = HttpContext.Session.GetString("user");
+			var userData = JsonConvert.DeserializeObject<UpdatedUserViewModel>(user);
+			return View(userData);
         }
         [HttpPost]
-        public async Task<IActionResult> UpdateProfile(UserViewModel model)
+        public async Task<IActionResult> UpdateProfile(UpdatedUserViewModel model)
         {
             
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(model);
             var content = new StringContent(jsonData, encoding: Encoding.UTF8, "application/json");
-            var result = await client.PostAsync("https://localhost:7266/api/Profile/UpdateProfile", content);
-
+            var result = await client.PutAsync("https://localhost:7266/api/Profile/UpdateProfile", content);
+            var error = await result.Content.ReadAsStringAsync();
 
             if (result.IsSuccessStatusCode)
             {
                 var updateUser = await result.Content.ReadAsStringAsync();
-                
-                UpdatedUserViewModel updatedUserViewModel = new UpdatedUserViewModel()
-                {
-                    Name = model.Name,
-                    Surname = model.Surname,
-                    UserName = model.UserName,
-                    PhoneNumber = model.PhoneNumber,
-                    Address = model.Address,
-                    BirthDate = model.BirthDate,
-                };
-                TempData["updateUser"] = updatedUserViewModel;
+                var userData = JsonConvert.DeserializeObject<UpdatedUserViewModel>(updateUser);
 
-                return RedirectToAction("UpdateProfile", "Profile");
+                UserViewModel updatedUserViewModel = new UserViewModel()
+                {
+                    Name = userData.Name,
+                    Surname = userData.Surname,
+                    UserName = userData.UserName,
+                    PhoneNumber = userData.PhoneNumber,
+                    Address = userData.Address,
+                    BirthDate = userData.BirthDate,
+                };
+                string user = JsonConvert.SerializeObject(updatedUserViewModel);
+                HttpContext.Session.SetString("user", user);
+                return RedirectToAction("Login", "Account");
             }
             ModelState.AddModelError("", "");
             return View(model);
