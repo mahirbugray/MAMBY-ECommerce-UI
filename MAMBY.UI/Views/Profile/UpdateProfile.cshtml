@@ -1,0 +1,73 @@
+﻿@model UpdatedUserViewModel
+@{
+    ViewData["Title"] = "UpdateProfile";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<!-- Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Hesap Bilgilerim</h1>
+                <nav class="d-flex align-items-center">
+                    <a asp-action="Index" asp-controller="Home">Anasayfa<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="#">Hesabım</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="login_box_area section_gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="login_form_inner">
+                    <h3>HESAP BİLGİLERİM</h3>
+                    <form asp-action="ProfilBilgiGuncelle" asp-controller="Profil" method="post">
+                        <input asp-for="UserId" class="form-control" type="hidden" />
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label">İsim</label>
+                            <input asp-for="Name" class="form-control" style="background-color:lightgray;" readonly />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Surname" class="control-label">Soyisim</label>
+                            <input asp-for="Surname" class="form-control" style="background-color:lightgray;" readonly />
+                            <span asp-validation-for="Surname" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UserName" class="control-label">Kullanıcı Adı</label>
+                            <input asp-for="UserName" class="form-control" style="background-color:lightgray;" readonly />
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="BirthDate" class="control-label">Doğum Tarihi</label>
+                            <input asp-for="BirthDate" type="date" class="form-control" style="background-color:lightgray;" readonly />
+                            <span asp-validation-for="BirthDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="PhoneNumber" class="control-label">Telefon Numarası</label>
+                            <input asp-for="PhoneNumber" type="tel" class="form-control" maxlength="11" required />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Address" class="control-label">Adres</label>
+                            <input asp-for="Address" class="form-control" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label">E Mail</label>
+                            <input asp-for="Email" type="email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-outline-success">Hesap Bilgilerimi Güncelle</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

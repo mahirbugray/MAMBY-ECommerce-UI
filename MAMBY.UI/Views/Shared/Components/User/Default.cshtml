@@ -3,7 +3,7 @@
 @if (Model.AccessToken != null)
 {
     <li class="nav-item">
-        <a class="nav-link" id="loginLink"> Hesabım (@Model.UserName)</a>
+        <a class="nav-link" asp-controller="Profile" asp-action="Index" asp-route-id="@Model.Id "id="loginLink"> Hesabım (@Model.UserName)</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" asp-controller="Account" asp-action="Logout" id="registerLink">Çıkış Yap</a>
