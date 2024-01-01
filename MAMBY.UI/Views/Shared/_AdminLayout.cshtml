@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Molla Admin</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="~/admin/assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="~/admin/assets/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="~/admin/assets/vendors/jvectormap/jquery-jvectormap.css">
+    <link rel="stylesheet" href="~/admin/assets/vendors/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="~/admin/assets/vendors/owl-carousel-2/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/admin/assets/vendors/owl-carousel-2/owl.theme.default.min.css">
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="~/admin/assets/css/style.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="~/admin/assets/images/favicon.png" />
+</head>
+<body>
+    <div class="container-scroller">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+            <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
+                <a class="sidebar-brand brand-logo  text-white" asp-controller="Admin" asp-action="Index">MOLLA</a>
+                <a class="sidebar-brand brand-logo-mini  text-white" asp-controller="Admin" asp-action="Index">M</a>
+            </div>
+            <ul class="nav">
+                <li class="nav-item profile">
+                    <div class="profile-desc">
+                        <div class="profile-pic">
+                            <div class="count-indicator">
+                                <img class="img-xs rounded-circle " src="~/admin/assets/images/faces/face15.jpg" alt="">
+                                <span class="count bg-success"></span>
+                            </div>
+                            <div class="profile-name">
+                                <h5 class="mb-0 font-weight-normal">Henry Klein</h5>
+                                <span>Gold Member</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item nav-category">
+                    <span class="nav-link">Navigation</span>
+                </li>
+                <li class="nav-item menu-items">
+                    <a class="nav-link" asp-action="Index" asp-controller="Admin">
+                        <span class="menu-icon">
+                            <i class="mdi mdi-home"></i>
+                        </span>
+                        <span class="menu-title">Ana Sayfa</span>
+                    </a>
+                </li>
+                <li class="nav-item menu-items">
+                    <a class="nav-link" asp-action="Products" asp-controller="Admin">
+                        <span class="menu-icon">
+                            <i class="mdi mdi-format-list-bulleted"></i>
+                        </span>
+                        <span class="menu-title">Ürünler</span>
+                    </a>
+                </li>
+                <li class="nav-item menu-items">
+                    <a class="nav-link" href="/Admin/Categories">
+                        <span class="menu-icon">
+                            <i class="mdi mdi-table-large"></i>
+                        </span>
+                        <span class="menu-title">Kategoriler</span>
+                    </a>
+                </li>
+                <li class="nav-item menu-items">
+                    <a class="nav-link" asp-action="Sales" asp-controller="Admin">
+                        <span class="menu-icon">
+                            <i class="mdi mdi-cart-outline"></i>
+                        </span>
+                        <span class="menu-title">Satışlar</span>
+                    </a>
+                </li>
+                <li class="nav-item menu-items">
+                    <a class="nav-link" href="/Admin/Users">
+                        <span class="menu-icon">
+                            <i class="mdi mdi-account-multiple"></i>
+                        </span>
+                        <span class="menu-title">Üyeler</span>
+                    </a>
+                </li>
+                <li class="nav-item menu-items">
+                    <a class="nav-link" asp-action="Comments" asp-controller="Admin">
+                        <span class="menu-icon">
+                            <i class="mdi mdi-comment-multiple-outline"></i>
+                        </span>
+                        <span class="menu-title">Yorumlar</span>
+                    </a>
+                </li>
+                <li class="nav-item menu-items">
+                    <a class="nav-link" asp-action="Index" asp-controller="Role">
+                        <span class="menu-icon">
+                            <i class="mdi mdi-comment-multiple-outline"></i>
+                        </span>
+                        <span class="menu-title">Roller</span>
+                    </a>
+                </li>
+                <li class="nav-item menu-items">
+                    <a class="nav-link" asp-action="Index" asp-controller="Home">
+                        <span class="menu-icon">
+                            <i class="mdi mdi-keyboard-backspace"></i>
+                        </span>
+                        <span class="menu-title">Siteye Dön</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_navbar.html -->
+            <nav class="navbar p-0 fixed-top d-flex flex-row">
+                <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
+                    <a class="navbar-brand brand-logo-mini text-white" href="index.html">MOL</a>
+                </div>
+                <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
+                    <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                        <span class="mdi mdi-menu"></span>
+                    </button>
+                    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                        <span class="mdi mdi-format-line-spacing"></span>
+                    </button>
+                </div>
+            </nav>
+            <!-- partial -->
+            @RenderBody()
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="~/admin/assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    @await RenderSectionAsync("Scripts", required: false)
+    <script src="~/admin/assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="~/admin/assets/vendors/progressbar.js/progressbar.min.js"></script>
+    <script src="~/admin/assets/vendors/jvectormap/jquery-jvectormap.min.js"></script>
+    <script src="~/admin/assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="~/admin/assets/vendors/owl-carousel-2/owl.carousel.min.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="~/admin/assets/js/off-canvas.js"></script>
+    <script src="~/admin/assets/js/hoverable-collapse.js"></script>
+    <script src="~/admin/assets/js/misc.js"></script>
+    <script src="~/admin/assets/js/settings.js"></script>
+    <script src="~/admin/assets/js/todolist.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="~/admin/assets/js/dashboard.js"></script>
+    <!-- End custom js for this page -->
+</body>
+</html>
