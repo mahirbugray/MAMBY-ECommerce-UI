@@ -85,7 +85,7 @@ namespace MAMBY.UI.Controllers
 			var error = await result.Content.ReadAsStringAsync();
 			if (result.StatusCode == System.Net.HttpStatusCode.OK)
 			{
-				return View("Details");
+				return RedirectToAction("Details", new { id = product });
 			}
             return RedirectToAction("Index", "ErrorPage");  
 
