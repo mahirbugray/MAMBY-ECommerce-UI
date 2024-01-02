@@ -10,6 +10,6 @@
         public int UserId { get; set; }
         public int ProductId { get; set; }
         public virtual UserViewModel User { get; set; }
-        //public ProductViewModel ProductViewModel { get; set; }
+        public ProductViewModel Products { get; set; }
     }
 }

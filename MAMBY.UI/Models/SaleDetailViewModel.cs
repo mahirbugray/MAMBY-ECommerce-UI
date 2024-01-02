@@ -6,7 +6,7 @@
         public DateTime DateTime { get; set; } = DateTime.Now;
         public bool IsDeleted { get; set; }
         public int Quantity { get; set; }
-        public int Price { get; set; }
+        public decimal Price { get; set; }
         public int ProductId { get; set; }
         public int SaleId { get; set; }
         public string City { get; set; }
@@ -19,7 +19,7 @@
 
 
         //Relation
-        public ProductViewModel ProductViewModel { get; set; }
-        public SaleViewModel SaleViewModel { get; set; }
+        public ProductViewModel Products { get; set; }
+        public SaleViewModel Sale { get; set; }
     }
 }
