@@ -15,9 +15,19 @@ namespace MAMBY.UI.Controllers.Admin
         }
 
         [HttpGet]
-        public IActionResult AddProductFeature()
+        public async Task<IActionResult> AddProductFeature(int id, int categoryId)
         {
-            return View();
+            ViewBag.productId = id;
+            var client = _httpClientFactory.CreateClient();
+            var result = await client.GetAsync("https://localhost:7266/api/ProductFeature/GetAllProductFeature/" + categoryId);
+            var error = await result.Content.ReadAsStringAsync();
+            if (result.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var jsonData = await result.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<List<ProductFeatureViewModel>>(jsonData);
+                return View(data);
+            }
+            return RedirectToAction("Index", "ErrorPage");
         }
         [HttpPost]
         public async Task<IActionResult> AddProductFeature(ProductFeatureViewModel model)

@@ -82,7 +82,6 @@ namespace MAMBY.UI.Controllers.Admin
             }
             ProductViewModel productViewModel = new ProductViewModel()
             {
-
                 Brand = model.Brand,
                 CategoryId = model.CategoryId,
                 Commands = model.Commands,
@@ -106,7 +105,9 @@ namespace MAMBY.UI.Controllers.Admin
             var error = await result.Content.ReadAsStringAsync();
             if (result.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                return RedirectToAction("AddProductFeature", "AdminProductFeature");
+                var id = JsonConvert.DeserializeObject<int>(await result.Content.ReadAsStringAsync());
+
+                return RedirectToAction("AddProductFeature", "AdminProductFeature", new { id = id, categoryId = model.CategoryId });
             }
             ModelState.AddModelError("Error", error);
             return RedirectToAction("Index", "ErrorPage");
