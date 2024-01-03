@@ -17,7 +17,9 @@
         public string ContentImage4 { get; set; }
         public int Point { get; set; }
         public int CategoryId { get; set; }
-        public CategoryViewModel Category { get; set; }
-        public List<CommandViewModel> Commands { get; set; }
+        public CategoryViewModel? Category { get; set; }
+        public List<CommandViewModel>? Commands { get; set; }
+        public List<ProductFeatureViewModel>? ProductFeatures { get; set; }
+
     }
 }
