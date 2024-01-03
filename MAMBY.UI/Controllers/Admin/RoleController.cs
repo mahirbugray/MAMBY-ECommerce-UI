@@ -49,7 +49,7 @@ namespace MAMBY.UI.Controllers.Admin
             var error = await result.Content.ReadAsStringAsync();
             if(result.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                return View("Index");
+                return View("Index", "Admin");
             }
             return RedirectToAction("Index", "ErrorPage");
         }
