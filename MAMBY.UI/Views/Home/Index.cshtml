@@ -310,43 +310,41 @@
                         </div>
                     </div>
                 </div>
-                <a href="" class="primary-btn">Shop Now</a>
+                <a asp-action="Index" asp-controller="Product" class="primary-btn">İndirim Burada</a>
             </div>
             <div class="col-lg-6 no-padding exclusive-right">
                 <div class="active-exclusive-product-slider">
                     <!-- single exclusive carousel -->
                     <div class="single-exclusive-slider">
-                        <img class="img-fluid" src="~/theme/img/product/e-p1.png" alt="">
+                        <img class="img-fluid" src="~/images/NikeAirMax90Futura2.webp" alt="">
                         <div class="product-details">
                             <div class="price">
-                                <h6>$150.00</h6>
-                                <h6 class="l-through">$210.00</h6>
+                                <h6>1499,00 ₺</h6>
+                                <h6 class="l-through">1999,00 ₺</h6>
                             </div>
                             <h4>
-                                addidas New Hammer sole
-                                for Sports person
+                                Nike Air Max Futura 90 Ayakkabı
                             </h4>
                             <div class="add-bag d-flex align-items-center justify-content-center">
-                                <a class="add-btn" href=""><span class="ti-bag"></span></a>
-                                <span class="add-text text-uppercase">Add to Bag</span>
+                                <a class="add-btn" asp-action="Details" asp-controller="Product" asp-route-id="4"></a>
+                                <span class="add-text text-uppercase">Ürüne Git</span>
                             </div>
                         </div>
                     </div>
                     <!-- single exclusive carousel -->
                     <div class="single-exclusive-slider">
-                        <img class="img-fluid" src="~/theme/img/product/e-p1.png" alt="">
+                        <img class="img-fluid" src="~/images/adidasniteball1.webp" alt="">
                         <div class="product-details">
                             <div class="price">
-                                <h6>$150.00</h6>
-                                <h6 class="l-through">$210.00</h6>
+                                <h6>1849,00 ₺</h6>
+                                <h6 class="l-through">2199,00 ₺</h6>
                             </div>
                             <h4>
-                                addidas New Hammer sole
-                                for Sports person
+                                addidas Niteball Unisex Ayakkabı
                             </h4>
                             <div class="add-bag d-flex align-items-center justify-content-center">
-                                <a class="add-btn" href=""><span class="ti-bag"></span></a>
-                                <span class="add-text text-uppercase">Add to Bag</span>
+                                <a class="add-btn" asp-action="Details" asp-controller="Product" asp-route-id="7"></a>
+                                <span class="add-text text-uppercase">Ürüne Git</span>
                             </div>
                         </div>
                     </div>
@@ -357,163 +355,37 @@
 </section>
 <!-- End exclusive deal Area -->
 <!-- Start brand Area -->
+
 <section class="brand-area section_gap">
+
+    <h2 class="col text-center"> ÇALIŞTIĞIMIZ MARKALAR</h2>
+    <br />
     <div class="container">
         <div class="row">
-            <a class="col single-img" href="#">
-                <img class="img-fluid d-block mx-auto" src="~/theme/img/brand/1.png" alt="">
+            <a class="col single-img">
+                <img class="img-fluid d-block mx-auto" src="~/theme/img/brand/adidaslogo.jpg" alt="">
             </a>
-            <a class="col single-img" href="#">
-                <img class="img-fluid d-block mx-auto" src="~/theme/img/brand/2.png" alt="">
+            <a class="col single-img">
+                <img class="img-fluid d-block mx-auto" src="~/theme/img/brand/nikelogo.jpg" alt="">
             </a>
-            <a class="col single-img" href="#">
-                <img class="img-fluid d-block mx-auto" src="~/theme/img/brand/3.png" alt="">
+            <a class="col single-img">
+                <img class="img-fluid d-block mx-auto" src="~/theme/img/brand/gslogo.png" alt="" style="height:100px">
             </a>
-            <a class="col single-img" href="#">
-                <img class="img-fluid d-block mx-auto" src="~/theme/img/brand/4.png" alt="">
+            <a class="col single-img">
+                <img class="img-fluid d-block mx-auto" src="~/theme/img/brand/AppleLogo.png" alt="">
             </a>
-            <a class="col single-img" href="#">
-                <img class="img-fluid d-block mx-auto" src="~/theme/img/brand/5.png" alt="">
+            <a class="col single-img">
+                <img class="img-fluid d-block mx-auto" src="~/theme/img/brand/rogLogo.png" alt="" style="height:90px">
+            </a>
+            <a class="col single-img">
+                <img class="img-fluid d-block mx-auto" src="~/theme/img/brand/armaniLogo.jpg" alt="">
+            </a>
+            <a class="col single-img">
+                <img class="img-fluid d-block mx-auto" src="~/theme/img/brand/yslLogo.jpg" alt="">
             </a>
         </div>
     </div>
 </section>
 <!-- End brand Area -->
 <!-- Start related-product Area -->
-<section class="related-product-area section_gap_bottom">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6 text-center">
-                <div class="section-title">
-                    <h1>Deals of the Week</h1>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-9">
-                <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/theme/img/r1.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/theme/img/r2.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/theme/img/r3.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/theme/img/r5.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/theme/img/r6.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/theme/img/r7.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/theme/img/r9.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/theme/img/r10.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/theme/img/r11.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="ctg-right">
-                    <a href="#" target="_blank">
-                        <img class="img-fluid d-block mx-auto" src="~/theme/img/category/c5.jpg" alt="">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 <!-- End related-product Area -->

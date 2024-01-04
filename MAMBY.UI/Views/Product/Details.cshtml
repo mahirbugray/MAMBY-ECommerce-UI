@@ -51,23 +51,10 @@
 					<p>
 						@Model.Description
 					</p>
-					@* <div class="product_count">
-						<label for="qty">Quantity:</label>
-						<input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-						<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-								class="increase items-count" type="button">
-							<i class="lnr lnr-chevron-up"></i>
-						</button>
-						<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-								class="reduced items-count" type="button">
-							<i class="lnr lnr-chevron-down"></i>
-						</button>
-					</div> *@
 					<div class="card_area d-flex align-items-center">
 						<form asp-action="Add" asp-controller="Card" asp-route-id="@Model.Id" method="post">
                             <input type="hidden" name="productId" value="@Model.Id" />
                             <input type="hidden" name="quantity" id="quantity" value="1" />
-
                             <button type="submit" class="primary-btn">Sepete Ekle</button>
                         </form>
 						<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
@@ -78,94 +65,101 @@
 		</div>
 	</div>
 </div>
-
-
 <!--COMMEND AREA -->
 <section class="product_description_area">
-		<div class="container">
-			<ul class="nav nav-tabs" id="myTab" role="tablist">
-				<li class="nav-item">
-					<a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Description</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-					 aria-selected="false">Specification</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
-					 aria-selected="false">Comments</a>
-				</li>
-			</ul>
-			<div class="tab-content" id="myTabContent">
-				<div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
-					<p>
-						@Model.Description
-					</p>
+	<div class="container">
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Description</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+					aria-selected="false">Specification</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+					aria-selected="false">Comments</a>
+			</li>
+		</ul>
+		<div class="tab-content" id="myTabContent">
+			<div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
+				<p>
+					@Model.Description
+				</p>
+			</div>
+			<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+				<div class="table-responsive">
+							 <h3>@Model.Name Özellikleri</h3>
+<table class="table-striped w-100">
+    <tbody>
+        @foreach (var item in Model.ProductFeatures)
+        {
+            <tr>
+                <td>@item.Key :</td>
+                <td>@item.value</td>
+            </tr>
+        }
+    </tbody>
+</table>
 				</div>
-				<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-					<div class="table-responsive">
-						 <h3>@Model.Name Özellikleri</h3>
-                            <table class="table-striped w-100">
-                                <tbody>
-                                    @foreach (var item in Model.ProductFeatures)
-                                    {
-                                        <tr>
-                                            <td>@item.Key :</td>
-                                            <td>@item.value</td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-					</div>
-				</div>
-				<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="comment_list">
-								<div class="review_item">
-									<div class="media">
-									@if (Model.Commands == null)
-									{
-										<div class="alert alert-danger" role="alert" style="width:100%;">
-											<strong>Bu ürüne ait yorum bulunamamaktadır. </strong>
-										</div>
-									}
-									else
-									{
+			</div>
+			<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="comment_list">
+							@if (Model.Commands == null || !Model.Commands.Any())
+							{
+								<div class="alert alert-secondary" role="alert" style="width:100%;">
+									<strong>Bu ürüne ait yorum bulunamamaktadır.</strong>
+								</div>
+							}
+							else
+							{
+								<table class="table">
+									<tbody>
 										@foreach(var item in Model.Commands)
 										{
-											<div class="d-flex">
-											<h2>@item.User.Name @item.User.Surname</h2>
-										</div>
-										<div class="media-body">
-										<h5>@item.DateTime</h5>
-										</div>
-									
-									<p>@item.Content</p>
+											<tr>
+												<tr>
+												<td>
+													<div class="review_item">
+														<div class="media">
+															<div class="d-flex">
+																<h4>@item.User.Name @item.User.Surname</h4> 
+																<h4 class="ml-4">@item.DateTime</h4>
+															</div>
+														</div>
+														<div class="media-body">
+															<p>@item.Content</p>
+														</div>
+													</div>
+												</td>
+												</tr>
+											</tr>
 										}
-									}
-										</div>
-								</div>
-							</div>
+									</tbody>
+								</table>
+							}
 						</div>
-						<div class="col-lg-6">
-							<div class="review_box">
-								<h4>Yorum Yap</h4>
-								<form class="row contact_form" asp-action="AddCommand" asp-controller="Product" method="post" id="contactForm" novalidate="novalidate">
-									<input type="hidden" value="@Model.Id" name="product"/>
-									<div class="col-md-12">
-										<div class="form-group">
-											<textarea class="form-control" id="message" rows="1" name="Content" placeholder="Yorumunuz"></textarea>
-										</div>
+					</div>
+					<div class="col-lg-12 ">
+						<div class="review_box">
+							<h4>Yorum Yap</h4>							
+							<form class="row contact_form" asp-action="AddCommand" asp-controller="Product" method="post" id="contactForm" novalidate="novalidate">
+								<input type="hidden" value="@Model.Id" name="product" />
+								<div class="col-md-12">
+									<div class="form-group">
+										<textarea class="form-control" id="message" rows="4" name="Content" placeholder="Yorumunuz"></textarea>
 									</div>
-									<div class="col-md-12 text-right">
-										<button type="submit" value="submit" class="btn primary-btn">Gönder</button>
-									</div>
-								</form>
-							</div>
+								</div>
+								<div class="col-md-12 text-right">
+									<button type="submit" value="submit" class="btn primary-btn">Gönder</button>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</section>
+	</div>
+</section>
