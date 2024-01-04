@@ -51,7 +51,7 @@
 					<p>
 						@Model.Description
 					</p>
-					<div class="product_count">
+					@* <div class="product_count">
 						<label for="qty">Quantity:</label>
 						<input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
 						<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
@@ -62,7 +62,7 @@
 								class="reduced items-count" type="button">
 							<i class="lnr lnr-chevron-down"></i>
 						</button>
-					</div>
+					</div> *@
 					<div class="card_area d-flex align-items-center">
 						<form asp-action="Add" asp-controller="Card" asp-route-id="@Model.Id" method="post">
                             <input type="hidden" name="productId" value="@Model.Id" />
@@ -104,74 +104,18 @@
 				</div>
 				<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 					<div class="table-responsive">
-						<table class="table">
-							<tbody>
-								<tr>
-									<td>
-										<h5>Width</h5>
-									</td>
-									<td>
-										<h5>128mm</h5>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<h5>Height</h5>
-									</td>
-									<td>
-										<h5>508mm</h5>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<h5>Depth</h5>
-									</td>
-									<td>
-										<h5>85mm</h5>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<h5>Weight</h5>
-									</td>
-									<td>
-										<h5>52gm</h5>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<h5>Quality checking</h5>
-									</td>
-									<td>
-										<h5>yes</h5>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<h5>Freshness Duration</h5>
-									</td>
-									<td>
-										<h5>03days</h5>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<h5>When packeting</h5>
-									</td>
-									<td>
-										<h5>Without touch of hand</h5>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<h5>Each Box contains</h5>
-									</td>
-									<td>
-										<h5>60pcs</h5>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+						 <h3>@Model.Name Özellikleri</h3>
+                            <table class="table-striped w-100">
+                                <tbody>
+                                    @foreach (var item in Model.ProductFeatures)
+                                    {
+                                        <tr>
+                                            <td>@item.Key :</td>
+                                            <td>@item.value</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
 					</div>
 				</div>
 				<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
