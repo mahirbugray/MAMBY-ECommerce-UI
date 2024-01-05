@@ -1,10 +1,14 @@
 ﻿using MAMBY.UI.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace MAMBY.UI.Controllers.Admin
 {
+    //[Authorize(Roles = "Admin")]
     public class RoleController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -16,7 +20,9 @@ namespace MAMBY.UI.Controllers.Admin
 
         public async Task<IActionResult> Index()
         {
+            string token = JsonConvert.DeserializeObject<UserViewModel>(HttpContext.Session.GetString("user")).AccessToken;
             var client = _httpClientFactory.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, token);
             var result = await client.GetAsync("https://localhost:7266/api/Role/GetAllRoles");
             if(result.StatusCode == System.Net.HttpStatusCode.OK) 
             {
@@ -29,7 +35,9 @@ namespace MAMBY.UI.Controllers.Admin
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
+            string token = JsonConvert.DeserializeObject<UserViewModel>(HttpContext.Session.GetString("user")).AccessToken;
             var client = _httpClientFactory.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, token);
             var result = await client.GetAsync("https://localhost:7266/api/Role/GetEditRole/" + id);
             if(result.StatusCode == System.Net.HttpStatusCode.OK)
             {

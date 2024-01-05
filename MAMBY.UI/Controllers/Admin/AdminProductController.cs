@@ -1,11 +1,15 @@
 ﻿using MAMBY.UI.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace MAMBY.UI.Controllers.Admin
 {
+    //[Authorize(Roles = "Admin")]
     public class AdminProductController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -14,10 +18,11 @@ namespace MAMBY.UI.Controllers.Admin
         {
             _httpClientFactory = httpClientFactory;
         }
-
         public async Task<IActionResult> Index()
         {
+            string token = JsonConvert.DeserializeObject<UserViewModel>(HttpContext.Session.GetString("user")).AccessToken;
             var client = _httpClientFactory.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, token);
             var result = await client.GetAsync("https://localhost:7266/api/Product/GetAllFilter");
             var error = await result.Content.ReadAsStringAsync();
             if (result.StatusCode == System.Net.HttpStatusCode.OK)
@@ -30,7 +35,9 @@ namespace MAMBY.UI.Controllers.Admin
         }
         public async Task<IActionResult> AddProduct()
         {
+            string token = JsonConvert.DeserializeObject<UserViewModel>(HttpContext.Session.GetString("user")).AccessToken;
             var client = _httpClientFactory.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, token);
             var result = await client.GetAsync("https://localhost:7266/api/Category/GetAllCategory");
             if (result.StatusCode == System.Net.HttpStatusCode.OK)
             {
