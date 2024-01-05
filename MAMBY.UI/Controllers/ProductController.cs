@@ -69,6 +69,10 @@ namespace MAMBY.UI.Controllers
 		public async Task<IActionResult> AddCommand(string Content, int product)
 		{
 			var userId = JsonConvert.DeserializeObject<UserViewModel>(HttpContext.Session.GetString("user")).Id;
+			if(userId == 0)
+			{
+				return RedirectToAction("Login", "Account");
+			}
 			CommandViewModel commandViewModel = new CommandViewModel()
 			{
 				Content = Content,

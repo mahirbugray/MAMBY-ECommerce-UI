@@ -52,7 +52,8 @@ namespace MAMBY.UI.Controllers
                 var jsonData = JsonConvert.SerializeObject(cart);
                 string token = JsonConvert.DeserializeObject<UserViewModel>(HttpContext.Session.GetString("user")).AccessToken;
                 var client = _httpClientFactory.CreateClient();  //HttpClient döndürür
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, token); var content = new StringContent(jsonData, encoding: Encoding.UTF8, "application/json");
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, token); 
+                var content = new StringContent(jsonData, encoding: Encoding.UTF8, "application/json");
                 var result = await client.PostAsync("https://localhost:7266/api/Sale/CreateSale/", content);
 
                 if (result.IsSuccessStatusCode)
