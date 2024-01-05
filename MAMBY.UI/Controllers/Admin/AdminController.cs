@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Net.Http;
 using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace MAMBY.UI.Controllers.Admin
 {
@@ -19,19 +20,21 @@ namespace MAMBY.UI.Controllers.Admin
         }
 
         public IActionResult Index()
-        {
-            if (HttpContext.Session.GetString("user") != null)
+        { 
+           if (HttpContext.Session.GetString("user") != null)
             {
 				var user = JsonConvert.DeserializeObject<UserViewModel>(HttpContext.Session.GetString("user"));
 				var client = _httpClientFactory.CreateClient();
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, user.AccessToken);
-				var roleClaims = User.Claims.Where(c => c.Type == ClaimTypes.Role && c.Value == "Admin");
+                var tokenHandler = new JwtSecurityTokenHandler();
+                JwtSecurityToken securityToken = tokenHandler.ReadJwtToken(user.AccessToken);
+				var roleClaims = securityToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role && c.Value == "Admin");
 				if (roleClaims == null)
 				{
 					return RedirectToAction("Error", "ErrorPage");
 				}
 			}
-            return RedirectToAction("Login", "Account");
+            return View();
         }
     }
 
