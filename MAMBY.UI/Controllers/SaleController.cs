@@ -104,7 +104,7 @@ namespace MAMBY.UI.Controllers
                 {
                     return RedirectToAction("SaleDetail", "Sale");
 
-                }
+                } 
                 else
                 {
                     return RedirectToAction("Index", new { error = "Ödeme işlemi başarısız oldu. Tekrar deneyin." });
