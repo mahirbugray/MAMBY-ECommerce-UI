@@ -93,7 +93,6 @@ namespace MAMBY.UI.Controllers
             };
             try
             {
-
                 string token = JsonConvert.DeserializeObject<UserViewModel>(HttpContext.Session.GetString("user")).AccessToken;      
                 var client = _httpClientFactory.CreateClient();  //HttpClient döndürür
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, token);
