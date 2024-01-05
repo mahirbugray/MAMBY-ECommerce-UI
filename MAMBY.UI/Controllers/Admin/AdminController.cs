@@ -34,4 +34,5 @@ namespace MAMBY.UI.Controllers.Admin
             return RedirectToAction("Login", "Account");
         }
     }
+
 }
