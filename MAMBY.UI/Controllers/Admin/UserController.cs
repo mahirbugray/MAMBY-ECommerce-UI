@@ -34,7 +34,7 @@ namespace MAMBY.UI.Controllers.Admin
 					return RedirectToAction("Error", "ErrorPage");
 				}
 				var result = await client.GetAsync("https://localhost:7266/api/User/GetAllUsers");
-				if (result.StatusCode == System.Net.HttpStatusCode.OK)
+				if (result.StatusCode == System.Net.HttpStatusCode.OK) 
 				{
 					var jsonData = await result.Content.ReadAsStringAsync();
 					var data = JsonConvert.DeserializeObject<List<UserViewModel>>(jsonData);
