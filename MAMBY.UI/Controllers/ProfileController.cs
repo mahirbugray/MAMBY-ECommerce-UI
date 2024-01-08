@@ -1,6 +1,8 @@
 ﻿using MAMBY.UI.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 using System.Net.WebSockets;
 using System.Reflection;
 using System.Text;
@@ -63,6 +65,26 @@ namespace MAMBY.UI.Controllers
             }
             ModelState.AddModelError("", "");
             return View(model);
+        }
+        [HttpGet]
+        public async Task<IActionResult> OrderProfile(int id)
+        {
+            var userId = JsonConvert.DeserializeObject<UserViewModel>(HttpContext.Session.GetString("user")).Id;
+
+            id = Convert.ToInt32(userId);
+
+            string token = JsonConvert.DeserializeObject<UserViewModel>(HttpContext.Session.GetString("user")).AccessToken;
+            var client = _httpClientFactory.CreateClient();  
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, token);
+            var result = await client.GetAsync("https://localhost:7266/api/Sale/OrderProfile/" + id);
+            var jsonData = await result.Content.ReadAsStringAsync();
+            if (result.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var data = JsonConvert.DeserializeObject<List<SaleViewModel>>(jsonData);
+
+                return View(data);
+            }
+            return View();
         }
     }
 }

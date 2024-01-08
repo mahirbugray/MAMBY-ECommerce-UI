@@ -1,0 +1,57 @@
+﻿@model List<SaleViewModel>
+
+@{
+    ViewData["Title"] = "OrderProfile";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<!-- Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Sipariş Detayları</h1>
+                <nav class="d-flex align-items-center">
+                    <a asp-action="Index" asp-controller="Home">Anasayfa<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="#">Şiparişlerim</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="order_details section_gap">
+    <div class="container">
+        <h2 class="title_confirmation">Siparişler</h2>
+        <div class="order_details_table">
+            <h2>Sipariş Detayları</h2>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Sipariş Numarası</th>
+                            <th scope="col">Sipariş Adedi</th>
+                            <th scope="col">Sipariş Toplam Tutarı</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var orderDetail in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <p>@orderDetail.Id</p>
+                                </td>
+
+                                <td>
+                                    <h5>x @orderDetail.TotalQuantity</h5>
+                                </td>
+                                <td>
+                                    <p>₺ @orderDetail.TotalPrice</p>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
