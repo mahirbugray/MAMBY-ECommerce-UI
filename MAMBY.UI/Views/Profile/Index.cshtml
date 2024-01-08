@@ -108,62 +108,19 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div>
-                                        <a class="btn btn-secondary float-right m-3" asp-action="UpdateProfile" asp-controller="Profile">Hesap Bilgilerini Güncelle</a>
+                                    <div class=>
+                                        <a class="btn btn-success float-right m-3" asp-action="UpdateProfile" asp-controller="Profile">Hesap Bilgilerini Güncelle</a>
+                                        <!-- Siparişlerim Modal ve Button -->
+                                        <a class="btn btn-warning float-left m-3" asp-action="OrderProfile" asp-controller="Profile">
+                                            Siparişlerim
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        @* <div>
-                            <div class="row">
-                                @if (@ViewBag.Kiralama != null)
-                                {
-                                    @foreach (var item in ViewBag.Kiralama)
-                                    {
-                                        <div class="col-md-12">
-                                            <table class="table table-striped table-bordered text-center">
-                                                <thead class="thead-dark">
-                                                    <tr class="text-center">
-                                                        <th colspan="4">
-                                                            Aktif Kiralama
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tr>
-                                                    <th>Plaka</th>
-                                                    <th>Fatura No</th>
-                                                    <th>Toplam Tutar</th>
-                                                    <th>Kiralama Tarihi</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>@item.Plaka</td>
-                                                    <td>@item.FaturaNo</td>
-                                                    <td>@item.ToplamTutar</td>
-                                                    <td>@item.KiralamaTarihi</td>
-                                                </tr>
-                                                <tr class="text-center">
-                                                    <td colspan="4"><a class="btn btn-rounded btn-outline-success" style="position:center ;" asp-action="Devret" asp-controller="Profil" asp-route-faturaNo="@item.FaturaNo">Devret</a></td>
-                                                </tr>
-                                            </table>
 
-                                        </div>
-                                    }
 
-                                }
-                                else
-                                {
-                                    <p>Aktif kiralamanız yok!</p>
-                                    <hr />
-                                    <p>Hemen kiralama yapabilirsin.</p>
-                                    <hr />
-                                    <div class="text-center mt-3">
-                                        <a class="btn btn-info btn-lg font-weight-bold" style="width: 200px; color:black;" asp-action="Index" asp-controller="Arabalar">En Uygun Arabayı Kirala</a>
-                                    </div>
-                                }
-                            </div>
-                        </div> *@
                     </div>
-
                 </div>
             </div>
         </div>
